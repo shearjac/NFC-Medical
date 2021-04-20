@@ -4,17 +4,31 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
 public class SignUp extends AppCompatActivity {
 
+
+    TextInputEditText textInputEditTextUsername, textInputEditTextPassword, textInputEditTextEmail, textInputEditTextFirstName, textInputEditTextLastName;
+    Button buttonSignUp;
+    TextView textViewLogin;
+    ProgressBar progressBar;
+    String dateSQLCompatible = ""; //this variable will be set after the user changes the date.
 
     private DatePickerDialog datePickerDialog;
     private MaterialButton dateButton;
@@ -28,6 +42,46 @@ public class SignUp extends AppCompatActivity {
         dateButton = findViewById(R.id.buttonDatePicker);
         dateButton.setText(getTodaysDate());
 
+        textInputEditTextUsername = findViewById(R.id.username);
+        textInputEditTextPassword = findViewById(R.id.password);
+        textInputEditTextEmail = findViewById(R.id.email);
+        textInputEditTextFirstName = findViewById(R.id.firstName);
+        textInputEditTextLastName = findViewById(R.id.lastName);
+        buttonSignUp = findViewById(R.id.buttonSignUp);
+        progressBar = findViewById(R.id.progress);
+        textViewLogin = findViewById(R.id.loginText);
+
+        textViewLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        buttonSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                String username, password, email, firstName, lastName, date;
+                username = textInputEditTextUsername.getText().toString();
+                password = textInputEditTextPassword.getText().toString();
+                email = textInputEditTextEmail.getText().toString();
+                firstName = textInputEditTextFirstName.getText().toString();
+                lastName = textInputEditTextLastName.getText().toString();
+                //dateSQLCompatible = is already set
+
+                if(!username.equals("") && !password.equals("") && !email.equals("") && !firstName.equals("") && !lastName.equals("") && !dateSQLCompatible.equals("")){
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    //INSERT DATA INTO DATABASE
+
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "All fields are required", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 
@@ -48,7 +102,7 @@ public class SignUp extends AppCompatActivity {
                 month = month + 1;
                 String date = makeDateString(day, month, year);
                 dateButton.setText(date);
-                //dateSQLCompatible = year + "-" + month + "-" + day;
+                dateSQLCompatible = year + "-" + month + "-" + day;
             }
         };
 
