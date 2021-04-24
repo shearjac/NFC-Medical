@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NFC_Input_Form">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutBloodType"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textBloodType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Blood Type"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipChildren="false">
+
+                    <LinearLayout
+                        android:id="@+id/bloodChoicesPlus"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radioAPlus"
+                            android:layout_width="50pt"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="A+" />
+
+                        <RadioButton
+                            android:id="@+id/radioBPlus"
+                            android:layout_width="50pt"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="B+" />
+
+                        <RadioButton
+                            android:id="@+id/radioABPlus"
+                            android:layout_width="50pt"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="AB+" />
+
+                        <RadioButton
+                            android:id="@+id/radioOPlus"
+                            android:layout_width="50pt"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="O+" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/bloodChoicesMinus"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radioAMinus"
+                            android:layout_width="50pt"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="A-" />
+
+                        <RadioButton
+                            android:id="@+id/radioBMinus"
+                            android:layout_width="50pt"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="B-" />
+
+                        <RadioButton
+                            android:id="@+id/radioABMinus"
+                            android:layout_width="50pt"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="AB-" />
+
+                        <RadioButton
+                            android:id="@+id/radioOMinus"
+                            android:layout_width="50pt"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="O-" />
+                    </LinearLayout>
+
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutAllergies"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textAllergiesSevere"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Allergies (Severe)"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+                <CheckBox
+                    android:id="@+id/checkboxSulfa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sulfa drugs" />
+
+                <CheckBox
+                    android:id="@+id/checkboxPenicillin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Penicillin" />
+
+                <CheckBox
+                    android:id="@+id/checkboxAmoxicillin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Amoxicillin" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
