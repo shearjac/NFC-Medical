@@ -16,6 +16,7 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.sql.*;
+import java.util.HashMap;
 
 public class Main extends AppCompatActivity {
 
@@ -32,6 +33,16 @@ public class Main extends AppCompatActivity {
 
         run = (Button) findViewById(R.id.button);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        SessionManager sessionManager = new SessionManager(this);
+        HashMap<String, String> userDetails = sessionManager.getUserDetailFromSession();
+
+        String email = userDetails.get(SessionManager.KEY_EMAIL);
+
+        DB db = new DB();
+        int id = db.getId(email);
+
+        Log.d("id", Integer.toString(id));
 
         run.setOnClickListener(new View.OnClickListener(){
             @Override

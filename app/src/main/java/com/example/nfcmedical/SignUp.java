@@ -112,7 +112,6 @@ public class SignUp extends AppCompatActivity {
                     dateSQLCompatible = year + "-" + month + "-0" + day;
                 else
                     dateSQLCompatible = year + "-" + month + "-" + day;
-                Log.d("date", dateSQLCompatible);
             }
         };
 

@@ -35,6 +35,7 @@ public class DB {
         this.context = context;
     }
 
+    public DB(){}
 
 
     public void runTest(String query){
@@ -50,6 +51,26 @@ public class DB {
     public void signUp(String email, String password, String firstName, String lastName, String date){
         Register register = new Register();
         register.execute(email, password, firstName, lastName, date);
+    }
+
+    public int getId(String email){
+        int id = 9999;
+        con = connectionClass(); //Connect to database
+        String query = "select id from patient where email= '" + email + "'";
+
+        try{
+
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                id = rs.getInt("id");
+                con.close();
+            }
+        } catch (Exception ex){
+            Log.d("sql error", ex.getMessage());
+        }
+
+        return id;
     }
 
 
@@ -69,6 +90,8 @@ public class DB {
             Toast.makeText(context, r, Toast.LENGTH_LONG).show();
             if(isSuccess){
                 Log.d("query: ", queryResult);
+                Intent intent = new Intent(context, Main.class); //redirect
+                context.startActivity(intent);
             }
         }
 
@@ -90,9 +113,11 @@ public class DB {
                     String sql = "INSERT INTO patient VALUES('" + email + "','" + password + "','" + firstName + "','" + lastName + "','" + date + "')";
                     stmt.executeUpdate(sql);
 
-                    Intent intent = new Intent(context, Main.class); //redirect
-                    context.startActivity(intent);
+                    //Create session
+                    SessionManager sessionManager = new SessionManager(context);
+                    sessionManager.createLoginSession(email, firstName, lastName, date);
 
+                    isSuccess= true;
                 }
             }catch (Exception ex){
                 isSuccess = false;
