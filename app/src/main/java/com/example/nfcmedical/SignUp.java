@@ -12,6 +12,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -19,12 +20,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 public class SignUp extends AppCompatActivity {
 
 
-    TextInputEditText textInputEditTextUsername, textInputEditTextPassword, textInputEditTextEmail, textInputEditTextFirstName, textInputEditTextLastName;
+    TextInputEditText textInputEditTextPassword, textInputEditTextEmail, textInputEditTextFirstName, textInputEditTextLastName;
     Button buttonSignUp;
     TextView textViewLogin;
     ProgressBar progressBar;
@@ -42,7 +44,6 @@ public class SignUp extends AppCompatActivity {
         dateButton = findViewById(R.id.buttonDatePicker);
         dateButton.setText(getTodaysDate());
 
-        textInputEditTextUsername = findViewById(R.id.username);
         textInputEditTextPassword = findViewById(R.id.password);
         textInputEditTextEmail = findViewById(R.id.email);
         textInputEditTextFirstName = findViewById(R.id.firstName);
@@ -63,18 +64,18 @@ public class SignUp extends AppCompatActivity {
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                String username, password, email, firstName, lastName, date;
-                username = textInputEditTextUsername.getText().toString();
+                String password, email, firstName, lastName, date;
                 password = textInputEditTextPassword.getText().toString();
                 email = textInputEditTextEmail.getText().toString();
                 firstName = textInputEditTextFirstName.getText().toString();
                 lastName = textInputEditTextLastName.getText().toString();
                 //dateSQLCompatible = is already set
 
-                if(!username.equals("") && !password.equals("") && !email.equals("") && !firstName.equals("") && !lastName.equals("") && !dateSQLCompatible.equals("")){
+                if(!email.equals("") && !password.equals("") && !firstName.equals("") && !lastName.equals("") && !dateSQLCompatible.equals("")){
                     progressBar.setVisibility(View.VISIBLE);
 
-                    //INSERT DATA INTO DATABASE
+                    DB db = new DB(SignUp.this, progressBar);
+                    db.signUp(email, password, firstName, lastName, dateSQLCompatible);
 
                 }
                 else{
@@ -102,7 +103,16 @@ public class SignUp extends AppCompatActivity {
                 month = month + 1;
                 String date = makeDateString(day, month, year);
                 dateButton.setText(date);
-                dateSQLCompatible = year + "-" + month + "-" + day;
+
+                if(month < 10 && day < 10)
+                    dateSQLCompatible = year + "-0" + month + "-0" + day;
+                else if(month < 10)
+                    dateSQLCompatible = year + "-0" + month + "-" + day;
+                else if(day < 10)
+                    dateSQLCompatible = year + "-" + month + "-0" + day;
+                else
+                    dateSQLCompatible = year + "-" + month + "-" + day;
+                Log.d("date", dateSQLCompatible);
             }
         };
 

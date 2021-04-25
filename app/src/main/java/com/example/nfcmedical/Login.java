@@ -49,10 +49,10 @@ public class Login extends AppCompatActivity {
                 password = textInputEditTextPassword.getText().toString();
 
                 if(!username.equals("") && !password.equals("")){
-                    progressBar.setVisibility(View.VISIBLE);
 
-                    //AUTHENTICATE USER
-                    
+                    DB db = new DB(Login.this, progressBar);
+                    db.login(username, password);
+
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "All fields are required", Toast.LENGTH_SHORT).show();
