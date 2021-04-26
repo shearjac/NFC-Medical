@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">NFC Medical</string>
+
+    <string-array name="categories">
+        <item>Emergency Contacts</item>
+        <item>Allergies</item>
+        <item>Medical Conditions</item>
+        <item>Medications</item>
+        <item>Immunizations</item>
+    </string-array>
 </resources>
