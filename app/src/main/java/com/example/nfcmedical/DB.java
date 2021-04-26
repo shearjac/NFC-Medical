@@ -4,7 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.StrictMode;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -18,10 +21,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-//Constructor variables info:
-//ProgressBar it is expected a ProgressBar in the Layout. Assign it to a variable in your class (findViewById(R.id.yourBar))
-//Context you can get it with yourClassName.this it is used in this class to handle Toasts
+import java.text.SimpleDateFormat;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class DB {
@@ -30,22 +32,22 @@ public class DB {
     Connection con = null;
     Context context = null;
 
+    //use this if you need to register, login
+    //ProgressBar it is expected a ProgressBar in the Layout. Assign it to a variable in your class (findViewById(R.id.yourBar))
+    //Context you can get it with yourClassName.this it is used in this class to handle Toasts
     public DB(Context context, ProgressBar progressBar){
         this.progressBar = progressBar;
         this.context = context;
     }
 
+
     public DB(){}
 
+    //_____________________________________________________________________________________________________________FUNCTIONS_START
 
-    public void runTest(String query){
-        CheckLogin checkLogin = new CheckLogin();
-        checkLogin.execute(query);
-    }
-
-    public void login(String username, String password){
+    public void login(String email, String password){
         Login login = new Login();
-        login.execute(username, password);
+        login.execute(email, password);
     }
 
     public void signUp(String email, String password, String firstName, String lastName, String date){
@@ -53,15 +55,40 @@ public class DB {
         register.execute(email, password, firstName, lastName, date);
     }
 
+    public void addVaccine(int patientId, String name, String date){//date format should be YYYY-MM-DD
+        String sql = "INSERT INTO vaccines VALUES (" + patientId + ", '" + name + "', '" + date + "')";
+        updateSQL(sql);
+    }
+
+    public void addAllergies(int patientId, String name, int severity){
+        String sql = "INSERT INTO allergies VALUES (" + patientId + ", '" + name + "', " + severity + ")";
+        updateSQL(sql);
+    }
+
+    public void addCondition(int patientId, String name){
+        String sql = "INSERT INTO conditions VALUES (" + patientId + ", '" + name + "')";
+        updateSQL(sql);
+    }
+
+    public void addMedication(int patientId, String name, String dose, int frequency, String notes){
+        String sql = "INSERT INTO medications VALUES (" + patientId + ", '" + name + "', '" + dose + "', " + frequency + ", '" + notes + "')";
+        updateSQL(sql);
+    }
+
+    public void addContact(int patientId, String name, String phoneNumber){
+        String sql = "INSERT INTO emergency_contact VALUES (" + patientId + ", '" + name + "', '" + phoneNumber + "')";
+        updateSQL(sql);
+    }
+
     public int getId(String email){
         int id = 9999;
         con = connectionClass(); //Connect to database
-        String query = "select id from patient where email= '" + email + "'";
+        String sql = "select id from patient where email= '" + email + "'";
 
         try{
 
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+            ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 id = rs.getInt("id");
                 con.close();
@@ -72,6 +99,26 @@ public class DB {
 
         return id;
     }
+
+    private void updateSQL(String sql){
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(() -> {
+            con = connectionClass(); //Connect to database
+            try{
+                Statement stmt = con.createStatement();
+                stmt.executeUpdate(sql);
+                stmt.close();
+                con.close();
+            } catch (Exception ex){
+                Log.d("sql error", ex.getMessage());
+            }
+        });
+    }
+
+
+    //_________________________________________________________________________________________________________________CLASSES_START
 
 
     //__________________________________________________________________________________Register
@@ -112,10 +159,13 @@ public class DB {
                     Statement stmt = con.createStatement();
                     String sql = "INSERT INTO patient VALUES('" + email + "','" + password + "','" + firstName + "','" + lastName + "','" + date + "')";
                     stmt.executeUpdate(sql);
+                    stmt.close();
+
+                    String id = Integer.toString(getId(email));
 
                     //Create session
                     SessionManager sessionManager = new SessionManager(context);
-                    sessionManager.createLoginSession(email, firstName, lastName, date);
+                    sessionManager.createLoginSession(id, email, firstName, lastName, date);
 
                     isSuccess= true;
                 }
@@ -153,7 +203,7 @@ public class DB {
         @Override
         protected String doInBackground(String... params){
             try{
-                String username = params[0];
+                String email = params[0];
                 String password = params[1];
                 con = connectionClass(); //Connect to database
                 if(con == null){
@@ -161,12 +211,26 @@ public class DB {
                 }
                 else {
                     //Change below query accordingly
-                    String query = "select username from patient where username = '" + username + "' AND password = '" + password + "'";
+                    String query = "select * from patient where email = '" + email + "' AND password = '" + password + "'";
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(query);
+
                     if(rs.next()){
-                        queryResult = rs.getString("username");
+                        queryResult = rs.getString("email");
                         z = "Login successful";
+
+                        //SESSION VARIABLES
+                        String id, firstName, lastName, date;
+                        id = Integer.toString(rs.getInt("id"));
+                        firstName = rs.getString("firstName");
+                        lastName = rs.getString("lastName");
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                        date = formatter.format(rs.getDate("date"));
+
+                        //Create session
+                        SessionManager sessionManager = new SessionManager(context);
+                        sessionManager.createLoginSession(id, email, firstName, lastName, date);
+
                         isSuccess = true;
                         con.close();
                     } else{
@@ -183,57 +247,6 @@ public class DB {
         }
     }
 
-    //______________________________________________________________________________________Test
-    public class CheckLogin extends AsyncTask<String, String, String> {
-        String z = "";
-        Boolean isSuccess = false;
-        String name1 = "";
-
-        protected void onPreExecute(){
-            progressBar.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected  void onPostExecute(String r){
-            progressBar.setVisibility(View.GONE);
-            Toast.makeText(context, r, Toast.LENGTH_LONG).show();
-            if(isSuccess){
-                Log.d("query: ", name1);
-                //here we should actually return something
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... params){
-            try{
-                String query = params[0];
-                con = connectionClass(); //Connect to database
-                if(con == null){
-                    z = "Check Your Internet Access!";
-                }
-                else {
-                    //Change below query accordingly
-                    //String query = "select * from patient";
-                    Statement stmt = con.createStatement();
-                    ResultSet rs = stmt.executeQuery(query);
-                    if (rs.next()) {
-                        name1 = rs.getString("UserName"); //Name in the string label of a column in database
-                        z = "query successful";
-                        isSuccess = true;
-                        con.close();
-                    } else {
-                        z = "Invalid Query";
-                        isSuccess = false;
-                    }
-                }
-            }catch (Exception ex){
-                isSuccess = false;
-                z = ex.getMessage();
-                Log.d("sql error", z);
-            }
-            return z;
-        }
-    }
 
     @SuppressLint("NewApi")
     public Connection connectionClass(){

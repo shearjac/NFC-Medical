@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NFCMedical">
-        <activity android:name=".Main" />
+        <activity android:name=".Main">
+
+        </activity>
         <activity android:name=".Login" />
 
         <activity android:name=".SignUp">

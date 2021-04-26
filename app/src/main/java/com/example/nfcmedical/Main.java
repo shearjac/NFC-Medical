@@ -35,21 +35,24 @@ public class Main extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         SessionManager sessionManager = new SessionManager(this);
-        HashMap<String, String> userDetails = sessionManager.getUserDetailFromSession();
 
-        String email = userDetails.get(SessionManager.KEY_EMAIL);
-
-        DB db = new DB();
-        int id = db.getId(email);
-
-        Log.d("id", Integer.toString(id));
 
         run.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                DB db = new DB(Main.this, progressBar);
-                //db.runTest("select * from patient");
-                db.login("Lulz3k", "password");
+
+
+                HashMap<String, String> userDetails = sessionManager.getUserDetailFromSession();
+                String id = userDetails.get(SessionManager.KEY_ID);
+
+                String date = userDetails.get(SessionManager.KEY_DATE);
+
+                String email1 = userDetails.get(SessionManager.KEY_EMAIL);
+
+                Log.d("email", email1);
+                Log.d("id", id);
+                Log.d("date", date);
+
             }
         });
     }

@@ -16,7 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class Login extends AppCompatActivity {
 
-    TextInputEditText textInputEditTextUsername, textInputEditTextPassword;
+    TextInputEditText textInputEditTextEmail, textInputEditTextPassword;
     Button buttonLogin;
     TextView textViewSignUp;
     ProgressBar progressBar;
@@ -26,7 +26,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        textInputEditTextUsername = findViewById(R.id.username);
+        textInputEditTextEmail = findViewById(R.id.email);
         textInputEditTextPassword = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.buttonLogin);
         progressBar = findViewById(R.id.progress);
@@ -44,14 +44,14 @@ public class Login extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                String username, password;
-                username = textInputEditTextUsername.getText().toString();
+                String email, password;
+                email = textInputEditTextEmail.getText().toString();
                 password = textInputEditTextPassword.getText().toString();
 
-                if(!username.equals("") && !password.equals("")){
+                if(!email.equals("") && !password.equals("")){
 
                     DB db = new DB(Login.this, progressBar);
-                    db.login(username, password);
+                    db.login(email, password);
 
                 }
                 else{

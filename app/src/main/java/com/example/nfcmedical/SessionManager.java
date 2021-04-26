@@ -14,6 +14,7 @@ public class SessionManager {
 
     private static String IS_LOGIN = "IsLoggedIn";
 
+    public static String KEY_ID = "id";
     public static String KEY_EMAIL = "email";
     public static String KEY_FIRST_NAME = "firstName";
     public static String KEY_LAST_NAME = "last_name";
@@ -25,10 +26,11 @@ public class SessionManager {
         editor = userSession.edit();
     }
 
-    public void createLoginSession(String email, String firstName, String lastName, String date) {
+    public void createLoginSession(String id, String email, String firstName, String lastName, String date) {
 
         editor.putBoolean(IS_LOGIN, true);
 
+        editor.putString(KEY_ID, id);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_FIRST_NAME, firstName);
         editor.putString(KEY_LAST_NAME, lastName);
@@ -40,6 +42,7 @@ public class SessionManager {
     public HashMap<String, String> getUserDetailFromSession() {
         HashMap<String, String> userData = new HashMap<String, String>();
 
+        userData.put(KEY_ID, userSession.getString(KEY_ID, null));
         userData.put(KEY_EMAIL, userSession.getString(KEY_EMAIL, null));
         userData.put(KEY_FIRST_NAME, userSession.getString(KEY_FIRST_NAME, null));
         userData.put(KEY_LAST_NAME, userSession.getString(KEY_LAST_NAME, null));
