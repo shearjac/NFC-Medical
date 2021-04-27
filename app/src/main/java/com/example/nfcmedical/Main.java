@@ -36,7 +36,6 @@ public class Main extends AppCompatActivity {
 
         SessionManager sessionManager = new SessionManager(this);
 
-
         run.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
