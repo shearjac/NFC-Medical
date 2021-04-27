@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AHC</string>
+    <string name="app_name">NFC Medical</string>
     <string name="username">Username</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
@@ -15,4 +15,12 @@
     <string name="emtLogin">EMT Login</string>
     <string name="scan">Scan</string>
     <string name="userLogin">User Login</string>
+    
+    <string-array name="categories">
+        <item>Emergency Contacts</item>
+        <item>Allergies</item>
+        <item>Medical Conditions</item>
+        <item>Medications</item>
+        <item>Immunizations</item>
+    </string-array>
 </resources>

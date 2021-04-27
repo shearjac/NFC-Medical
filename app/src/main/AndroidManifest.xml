@@ -15,13 +15,19 @@
         android:theme="@style/Theme.NFCMedical">
         <activity android:name=".EmtLogin"></activity>
         <activity android:name=".Main"></activity>
-        <activity android:name=".Login" />
-        <activity android:name=".SignUp">
-            <intent-filter>
+        <activity android:name=".Login">
+          <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".SignUp">
+        <activity android:name=".FullMedicalProfile">
+        </activity>
+        <activity android:name=".MedAlertProfile">
+
+            
         </activity>
     </application>
 
