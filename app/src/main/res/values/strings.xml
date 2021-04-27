@@ -1,6 +1,21 @@
 <resources>
     <string name="app_name">NFC Medical</string>
-
+    <string name="username">Username</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="signUp">SignUp</string>
+    <string name="last_name">LastName</string>
+    <string name="first_name">FirstName</string>
+    <string name="signup">SignUp</string>
+    <string name="loginhere">Login Instead</string>
+    <string name="date">Jan 01 2020</string>
+    <string name="signuphere">SignUp Instead</string>
+    <string name="email">Email</string>
+    <string name="run">Run</string>
+    <string name="emtLogin">EMT Login</string>
+    <string name="scan">Scan</string>
+    <string name="userLogin">User Login</string>
+    
     <string-array name="categories">
         <item>Emergency Contacts</item>
         <item>Allergies</item>
