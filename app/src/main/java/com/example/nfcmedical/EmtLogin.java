@@ -4,56 +4,45 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-public class Login extends AppCompatActivity {
+public class EmtLogin extends AppCompatActivity {
 
-    TextInputEditText textInputEditTextEmail, textInputEditTextPassword;
-    Button buttonLogin, buttonEmtLogin, buttonScan;
-    TextView textViewSignUp;
+    Button buttonUserLogin, buttonScan, buttonLogin;
+    TextInputEditText textInputEditTextUsername, textInputEditTextPassword;
     ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_emt_login);
 
-        textInputEditTextEmail = findViewById(R.id.email);
+        textInputEditTextUsername = findViewById(R.id.username);
         textInputEditTextPassword = findViewById(R.id.password);
-        buttonLogin = findViewById(R.id.buttonLogin);
-        buttonEmtLogin = findViewById(R.id.buttonEmtLogin);
-        buttonScan = findViewById(R.id.buttonScan);
-        progressBar = findViewById(R.id.progress);
-        textViewSignUp = findViewById(R.id.signUpText);
 
-        textViewSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                Intent intent = new Intent(getApplicationContext(), SignUp.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        buttonUserLogin = findViewById(R.id.buttonUserLogin);
+        buttonScan = findViewById(R.id.buttonScan);
+        buttonLogin = findViewById(R.id.buttonLogin);
+
+        progressBar = findViewById(R.id.progress);
+
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                String email, password;
-                email = textInputEditTextEmail.getText().toString();
+                String username, password;
+                username = textInputEditTextUsername.getText().toString();
                 password = textInputEditTextPassword.getText().toString();
 
-                if(!email.equals("") && !password.equals("")){
+                if(!username.equals("") && !password.equals("")){
 
-                    DB db = new DB(Login.this, progressBar);
-                    db.login(email, password);
+                    DB db = new DB(EmtLogin.this, progressBar);
+                    db.emtLogin(username, password);
 
                 }
                 else{
@@ -62,7 +51,8 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        buttonEmtLogin.setOnClickListener(new View.OnClickListener() {
+
+        buttonUserLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
 

@@ -55,6 +55,11 @@ public class DB {
         register.execute(email, password, firstName, lastName, date);
     }
 
+    public void emtLogin(String username, String password){
+        EmtLogin login = new EmtLogin();
+        login.execute(username, password);
+    }
+
     public void addVaccine(int patientId, String name, String date){//date format should be YYYY-MM-DD
         String sql = "INSERT INTO vaccines VALUES (" + patientId + ", '" + name + "', '" + date + "')";
         updateSQL(sql);
@@ -230,6 +235,62 @@ public class DB {
                         //Create session
                         SessionManager sessionManager = new SessionManager(context);
                         sessionManager.createLoginSession(id, email, firstName, lastName, date);
+
+                        isSuccess = true;
+                        con.close();
+                    } else{
+                        z = "Wrong credentials";
+                        isSuccess = false;
+                    }
+                }
+            }catch (Exception ex){
+                isSuccess = false;
+                z = ex.getMessage();
+                Log.d("sql error", z);
+            }
+            return z;
+        }
+    }
+
+    //__________________________________________________________________________________EMT_LOGIN
+    public class EmtLogin extends AsyncTask<String, String, String>{
+        String z = ""; //info on the executed query. Will be shown as a toast.
+        Boolean isSuccess = false;
+        String queryResult = "";
+
+        protected void onPreExecute(){
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected  void onPostExecute(String r){
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(context, r, Toast.LENGTH_LONG).show();
+            if(isSuccess){
+                Log.d("query: ", queryResult);
+                Intent intent = new Intent(context, Main.class); //redirect
+                context.startActivity(intent);
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... params){
+            try{
+                String username = params[0];
+                String password = params[1];
+                con = connectionClass(); //Connect to database
+                if(con == null){
+                    z = "Check Your Internet Access!";
+                }
+                else {
+                    //Change below query accordingly
+                    String query = "select * from EMT where username = '" + username + "' AND password = '" + password + "'";
+                    Statement stmt = con.createStatement();
+                    ResultSet rs = stmt.executeQuery(query);
+
+                    if(rs.next()){
+                        queryResult = rs.getString("username");
+                        z = "Login successful";
 
                         isSuccess = true;
                         con.close();

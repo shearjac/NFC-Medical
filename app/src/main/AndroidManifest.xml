@@ -13,11 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NFCMedical">
-        <activity android:name=".Main">
-
-        </activity>
+        <activity android:name=".EmtLogin"></activity>
+        <activity android:name=".Main"></activity>
         <activity android:name=".Login" />
-
         <activity android:name=".SignUp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
