@@ -68,7 +68,7 @@ public class FullMedicalProfile extends AppCompatActivity {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-
+                Log.d("thread", "I am executed");
                 Connection con = connectionClass(); //Connect to database
                 ///////////////////////////////////////////////////////////////////////
                 // I think we need to add a "WHERE patientId = thisPatientID" clause to each query
@@ -84,31 +84,31 @@ public class FullMedicalProfile extends AppCompatActivity {
                     ResultSet rs = stmt.executeQuery(queryAllergies);
 
                     while(rs.next()){
-                        Allergies a = new Allergies(rs.getInt("patientId"), rs.getString("name"), rs.getInt("severity"));
+                        Allergies a = new Allergies(rs.getInt("patient_id"), rs.getString("name"), rs.getInt("severity"));
                         allergies.add(a);
                     }
 
                     rs = stmt.executeQuery(queryCondition);
                     while(rs.next()){
-                        Condition c = new Condition(rs.getInt("patientId"), rs.getString("name"));
+                        Condition c = new Condition(rs.getInt("patient_id"), rs.getString("name"));
                         conditions.add(c);
                     }
 
                     rs = stmt.executeQuery(queryEmergencyContact);
                     while(rs.next()){
-                        EmergencyContact e = new EmergencyContact(rs.getInt("patientId"), rs.getString("name"), rs.getString("phoneNumber"));
+                        EmergencyContact e = new EmergencyContact(rs.getInt("patient_id"), rs.getString("name"), rs.getString("phoneNumber"));
                         emergencyContacts.add(e);
                     }
 
                     rs = stmt.executeQuery(queryMedication);
                     while(rs.next()){
-                        Medication m = new Medication(rs.getInt("patientId"), rs.getString("name"), rs.getString("dose"), rs.getInt("frequency"), rs.getString("notes"));
+                        Medication m = new Medication(rs.getInt("patient_id"), rs.getString("name"), rs.getString("dose"), rs.getInt("frequency"), rs.getString("notes"));
                         medications.add(m);
                     }
 
                     rs = stmt.executeQuery(queryVaccine);
                     while(rs.next()){
-                        Vaccine v = new Vaccine(rs.getInt("patientId"), rs.getString("name"), rs.getString("date"));
+                        Vaccine v = new Vaccine(rs.getInt("patient_id"), rs.getString("name"), rs.getString("date"));
                         vaccines.add(v);
                     }
 
@@ -121,6 +121,7 @@ public class FullMedicalProfile extends AppCompatActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        Log.d("post", "I am executed");
                         //____________________________________________________________________________________________________PUT THE CODE HERE
 
                         //NEED TO MODIFY SO categoryResults IS POPULATED WITH ACTUAL RESULTS FROM QUERYING THE DB
@@ -133,62 +134,30 @@ public class FullMedicalProfile extends AppCompatActivity {
                         for (EmergencyContact iceCon: emergencyContacts) {
                             patientContacts.add(iceCon.toString());
                         }
-                        ////////////////REMOVE THIS AFTER TESTING!/////////////
-                        //ADD TEST DATA
-                        patientContacts.add("Jane Smith \n(303) 507-8374");
-                        patientContacts.add("Harmony Smith \n(615) 593-2830");
-
 
                         // convert Allergies
                         ArrayList<String> patientAllergies = new ArrayList<>();
                         for (Allergies algy: allergies) {
                             patientAllergies.add(algy.toString());
                         }
-                        ////////////////REMOVE THIS AFTER TESTING!/////////////
-                        //ADD TEST DATA
-                        patientAllergies.add("Sulfa Drugs - mild");
-                        patientAllergies.add("Bee Stings - mild");
-                        patientAllergies.add("Bad Group Members - severe");
-
 
                         // convert Conditions
                         ArrayList<String> patientConditions = new ArrayList<>();
                         for (Condition cond: conditions) {
                             patientConditions.add(cond.toString());
                         }
-                        ////////////////REMOVE THIS AFTER TESTING!/////////////
-                        //ADD TEST DATA
-                        patientConditions.add("Primary Myelofibrosis");
-                        patientConditions.add("Type II Diabetes");
-                        patientConditions.add("Osteoarthritis");
-                        patientConditions.add("Hypothyroidism");
-                        patientConditions.add("PVOD");
-
 
                         // convert Medications
                         ArrayList<String> patientMedications = new ArrayList<>();
                         for (Medication med: medications) {
                             patientMedications.add(med.toString());
                         }
-                        ////////////////REMOVE THIS AFTER TESTING!/////////////
-                        //ADD TEST DATA
-                        patientMedications.add("levothyroxine 75 mcg 1 time/day \ntake at 6 am");
-                        patientMedications.add("hydroxyurea 100 mg 3 time/day \ndo not touch powder from broken capsule");
-                        patientMedications.add("lisinopril 20 mg 2 time/day\n");
-                        patientMedications.add("metformin 50 mg 3 time/day \ntake with meals");
-                        patientMedications.add("potassium 70 mEq 1 time/day\n");
-
 
                         // convert Immunizations
                         ArrayList<String> patientVaccines = new ArrayList<>();
                         for(Vaccine vax: vaccines) {
                             patientVaccines.add(vax.toString());
                         }
-                        ////////////////REMOVE THIS AFTER TESTING!/////////////
-                        //ADD TEST DATA
-                        patientVaccines.add("Covid-19 04/22/2021");
-                        patientVaccines.add("Rabies 12/05/2018");
-
 
                         //populate data in each category from results obtained when querying db
                         for (int i = 0; i < profileHeadings.size(); i++) {
