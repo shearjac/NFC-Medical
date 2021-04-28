@@ -87,6 +87,27 @@ public class DB {
         updateSQL(sql);
     }
 
+    public void removeVaccine(int patientId, String name){
+        String sql = "DELETE FROM vaccines WHERE patient_id=" + patientId + " AND name='" + name + "'";
+        updateSQL(sql);
+    }
+
+    public void removeAllergy(int patientId, String name){
+        String sql = "DELETE FROM allergies WHERE patient_id=" + patientId + " AND name='" + name + "'";
+        updateSQL(sql);
+    }
+
+    public void removeCondition(int patientId, String name){
+        String sql = "DELETE FROM conditions WHERE patient_id=" + patientId + " AND name='" + name + "'";
+        updateSQL(sql);
+    }
+
+    public void removeContact(int patientId, String name) {
+        String sql = "DELETE FROM emergency_contact WHERE patient_id=" + patientId + " AND name='" + name + "'";
+        updateSQL(sql);
+    }
+
+
     public int getId(String email){
         int id = 9999;
         con = connectionClass(); //Connect to database
