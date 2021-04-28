@@ -68,7 +68,6 @@ public class FullMedicalProfile extends AppCompatActivity {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                Log.d("thread", "I am executed");
                 Connection con = connectionClass(); //Connect to database
                 ///////////////////////////////////////////////////////////////////////
                 // I think we need to add a "WHERE patientId = thisPatientID" clause to each query
@@ -121,7 +120,6 @@ public class FullMedicalProfile extends AppCompatActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d("post", "I am executed");
                         //____________________________________________________________________________________________________PUT THE CODE HERE
 
                         //NEED TO MODIFY SO categoryResults IS POPULATED WITH ACTUAL RESULTS FROM QUERYING THE DB
