@@ -189,7 +189,7 @@ public class DataStructuring {
     }
 
     //char array -> String, String written into NFC
-    public void encode(char[] material)
+    private void encode(char[] material)
     {
         //Concatenate the array of chars into a single string
         StringBuilder writable = new StringBuilder(String.valueOf(material[0]));
@@ -222,7 +222,7 @@ public class DataStructuring {
     }
 
     //Take the scanned data char array and translate into Strings for the basic profile display
-    public void expand(char[] material)
+    private void expand(char[] material)
     {
         String[] stringsFor = new String[19];
         boolean[] booleansFor = new boolean[38];
