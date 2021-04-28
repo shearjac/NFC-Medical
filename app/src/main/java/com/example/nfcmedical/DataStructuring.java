@@ -1,4 +1,5 @@
 package com.example.nfcmedical;
+import java.util.HashMap;
 public class DataStructuring {
 
     //Receive data from the basic form and translate that to NFC-structured data
@@ -218,14 +219,14 @@ public class DataStructuring {
         }
 
         //Send the array to the expander
-        expand(nfcBlock);
+        expandStrings(nfcBlock);
+        expandBooleans(nfcBlock);
     }
 
     //Take the scanned data char array and translate into Strings for the basic profile display
-    private void expand(char[] material)
+    private String[] expandStrings(char[] material)
     {
         String[] stringsFor = new String[19];
-        boolean[] booleansFor = new boolean[38];
 
         {
             //Blood Type
@@ -258,7 +259,7 @@ public class DataStructuring {
             //CKD
             switch (material[1]) {
                 case '0':
-                    stringsFor[4] = "None";
+                    stringsFor[4] = null;
                     break;
                 case '1':
                     stringsFor[4] = "Stage I";
@@ -279,7 +280,7 @@ public class DataStructuring {
             //Diabetes
             switch (material[2]) {
                 case '0':
-                    stringsFor[5] = "None";
+                    stringsFor[5] = null;
                     break;
                 case '1':
                     stringsFor[5] = "Type I";
@@ -357,14 +358,63 @@ public class DataStructuring {
             for (int i = 1; i < 6; i++)
                 stringsFor[18] = stringsFor[18] + material[511 + i];
         }
+        for(int i=0;i<19;i++)
         {
-            //Scroll through and copy values from NFC location 3-40
-            for(int i=0;i<38;i++)
-            {
-                if (material[3 + i] == '1') booleansFor[i] = true;
-                else booleansFor[i] = false;
-            }
+            if(stringsFor[i].trim().isEmpty()==true){stringsFor[i]=null;}
         }
+
+        return stringsFor;
+    }
+    private HashMap<String, String> expandBooleans(char[] material)
+    {
+        boolean[] booleansFor = new boolean[38];
+        HashMap<String, String> boolsMap = new HashMap<>();
+        //Scroll through and copy values from NFC location 3-40
+        for(int i=0;i<38;i++)
+        {
+            if (material[3 + i] == '1') booleansFor[i] = true;
+            else booleansFor[i] = false;
+        }
+        boolsMap.put("Show Name",String.valueOf(booleansFor[1]));
+        boolsMap.put("Show ICE Number",String.valueOf(booleansFor[2]));
+        boolsMap.put("Sulfa Drugs",String.valueOf(booleansFor[3]));
+        boolsMap.put("Penicillin",String.valueOf(booleansFor[4]));
+        boolsMap.put("Amoxicillin",String.valueOf(booleansFor[5]));
+        boolsMap.put("NSAIDs",String.valueOf(booleansFor[6]));
+        boolsMap.put("General Anesthetic",String.valueOf(booleansFor[7]));
+        boolsMap.put("Nuts",String.valueOf(booleansFor[8]));
+        boolsMap.put("Bee Stings",String.valueOf(booleansFor[9]));
+        boolsMap.put("Latex",String.valueOf(booleansFor[10]));
+        boolsMap.put("Epi-Pen",String.valueOf(booleansFor[11]));
+        boolsMap.put("Asthma",String.valueOf(booleansFor[12]));
+        boolsMap.put("AFIB",String.valueOf(booleansFor[13]));
+        boolsMap.put("Coronary Artery",String.valueOf(booleansFor[14]));
+        boolsMap.put("Congestive Heart",String.valueOf(booleansFor[15]));
+        boolsMap.put("CVA",String.valueOf(booleansFor[16]));
+        boolsMap.put("Hypertension",String.valueOf(booleansFor[17]));
+        boolsMap.put("Epilepsy",String.valueOf(booleansFor[18]));
+        boolsMap.put("Seizure",String.valueOf(booleansFor[19]));
+        boolsMap.put("Dementia",String.valueOf(booleansFor[20]));
+        boolsMap.put("Bipolar",String.valueOf(booleansFor[21]));
+        boolsMap.put("Schizophrenia",String.valueOf(booleansFor[22]));
+        boolsMap.put("PTSD",String.valueOf(booleansFor[23]));
+        boolsMap.put("Pacemaker",String.valueOf(booleansFor[24]));
+        boolsMap.put("Defibrillator",String.valueOf(booleansFor[25]));
+        boolsMap.put("Insulin Pump",String.valueOf(booleansFor[26]));
+        boolsMap.put("Other Allergy",String.valueOf(booleansFor[27]));
+        boolsMap.put("Bleeding Disorder",String.valueOf(booleansFor[28]));
+        boolsMap.put("Active Cancer",String.valueOf(booleansFor[29]));
+        boolsMap.put("Missing Organ",String.valueOf(booleansFor[30]));
+        boolsMap.put("Transplanted Organ",String.valueOf(booleansFor[31]));
+        boolsMap.put("Other L-T",String.valueOf(booleansFor[32]));
+        boolsMap.put("Other Comm",String.valueOf(booleansFor[33]));
+        boolsMap.put("Other Implant",String.valueOf(booleansFor[34]));
+        boolsMap.put("Anticoagulant",String.valueOf(booleansFor[35]));
+        boolsMap.put("Anti-Seizure",String.valueOf(booleansFor[36]));
+        boolsMap.put("Diabetic",String.valueOf(booleansFor[37]));
+        boolsMap.put("Narcotic",String.valueOf(booleansFor[38]));
+
+        return boolsMap;
     }
 
 }
