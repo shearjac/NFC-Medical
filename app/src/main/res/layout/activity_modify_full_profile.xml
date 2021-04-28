@@ -15,9 +15,10 @@
             android:id="@+id/heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:text="Enter additional information
-            you would like to store in your full medical profile."
+            android:layout_marginEnd="24dp"
+            android:text="Enter information you would like to remove from or add to your full medical profile."
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="28sp"
@@ -69,24 +70,53 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/addICE"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/iCEButtonLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/iCELayout"
-            android:layout_marginStart="24dp"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/ic_add_button"
-            android:text="Add Another"
-            android:textAllCaps="false"
-            android:textColor="#6200EE"
-            android:textSize="18sp" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/removeICEButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:layout_weight="1"
+                android:backgroundTint="#E91E63"
+                android:gravity="center_horizontal"
+                android:text="Remove"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/addICEButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_weight="1"
+                android:backgroundTint="#6200EE"
+                android:gravity="center_horizontal"
+                android:text="Add"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/allergyLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addICE"
+            android:layout_below="@+id/iCEButtonLayout"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="12dp"
@@ -114,7 +144,7 @@
                 android:inputType="text"
                 android:textSize="18sp" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/algySeverity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -122,30 +152,58 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="24dp"
-                android:background="@drawable/edit_text_border"
-                android:hint="Enter mild, moderate, or severe"
                 android:inputType="text"
+                android:spinnerMode="dropdown"
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/addAllergy"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/AlgyButtonLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/allergyLayout"
-            android:layout_marginStart="24dp"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/ic_add_button"
-            android:text="Add Another"
-            android:textAllCaps="false"
-            android:textColor="#6200EE"
-            android:textSize="18sp" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/removeAlgyButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:layout_weight="1"
+                android:backgroundTint="#E91E63"
+                android:gravity="center_horizontal"
+                android:text="Remove"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/addAlgyButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_weight="1"
+                android:backgroundTint="#6200EE"
+                android:gravity="center_horizontal"
+                android:text="Add"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/conditionsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addAllergy"
+            android:layout_below="@+id/AlgyButtonLayout"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="12dp"
@@ -174,24 +232,53 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/addCondition"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/conditionButtonLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/conditionsLayout"
-            android:layout_marginStart="24dp"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/ic_add_button"
-            android:text="Add Another"
-            android:textAllCaps="false"
-            android:textColor="#6200EE"
-            android:textSize="18sp" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/removeConditionButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:layout_weight="1"
+                android:backgroundTint="#E91E63"
+                android:gravity="center_horizontal"
+                android:text="Remove"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/addCondtionButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_weight="1"
+                android:backgroundTint="#6200EE"
+                android:gravity="center_horizontal"
+                android:text="Add"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/medicationsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addCondition"
+            android:layout_below="@+id/conditionButtonLayout"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="12dp"
@@ -270,24 +357,53 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/addMedication"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/medButtonLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/medicationsLayout"
-            android:layout_marginStart="24dp"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/ic_add_button"
-            android:text="Add Another"
-            android:textAllCaps="false"
-            android:textColor="#6200EE"
-            android:textSize="18sp" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/removeMedButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:layout_weight="1"
+                android:backgroundTint="#E91E63"
+                android:gravity="center_horizontal"
+                android:text="Remove"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/addMedButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_weight="1"
+                android:backgroundTint="#6200EE"
+                android:gravity="center_horizontal"
+                android:text="Add"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/immunizationsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addMedication"
+            android:layout_below="@+id/medButtonLayout"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="12dp"
@@ -329,35 +445,52 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/addVaccine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/immunizationsLayout"
-            android:layout_marginStart="24dp"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/ic_add_button"
-            android:text="Add Another"
-            android:textAllCaps="false"
-            android:textColor="#6200EE"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/submitButton"
+        <LinearLayout
+            android:id="@+id/vaccineButtonLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addVaccine"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="24dp"
-            android:background="#6200EE"
-            android:gravity="center_horizontal"
-            android:text="Submit"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_below="@+id/immunizationsLayout"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/removeVaccineButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:layout_weight="1"
+                android:backgroundTint="#E91E63"
+                android:gravity="center_horizontal"
+                android:text="Remove"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/addVaccineButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_weight="1"
+                android:backgroundTint="#6200EE"
+                android:gravity="center_horizontal"
+                android:text="Add"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+
+
 
 
     </RelativeLayout>

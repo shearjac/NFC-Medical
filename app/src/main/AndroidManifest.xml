@@ -8,8 +8,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NFCMedical" >
-
+        android:theme="@style/Theme.NFCMedical">
+        <activity android:name=".ModifyFullProfile">
+        </activity>
+        <activity android:name=".PatientOptions">
+        </activity>
+        <activity android:name=".WriteNFC">
+        </activity>
+        <activity android:name=".ReadNFC">
+        </activity>
         <activity
             android:name=".FullProfileInput"
             android:label="NFC Medical">
@@ -18,8 +25,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> />
-
+        </activity>
     </application>
 
 </manifest>

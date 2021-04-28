@@ -1,37 +1,47 @@
 package com.example.nfcmedical;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 
-import java.nio.channels.Channel;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
-public class FullProfileInput extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class FullProfileInput extends AppCompatActivity {
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    //!!! PATIENT ID MUST BE PASSED INTO THIS CLASS SOMEHOW IN ORDER TO ADD THINGS TO THE DB!!!
+    int patientID = 33;
+
+    // new ArrayList to store existing and created text fields
+    ArrayList<EditText> allICEContacts = new ArrayList<>();
+    ArrayList<EditText> allAllergies = new ArrayList<>();
+    ArrayList<EditText> allConditions = new ArrayList<>();
+    ArrayList<EditText> allMedications = new ArrayList<>();
+    ArrayList<EditText> allImmunizations = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_profile_input);
 
-        // reference dropdown for allergy severity and populate it with options
-        Spinner algySeverity = findViewById(R.id.algySeverity);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.severities,
-                android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        algySeverity.setAdapter(adapter);
-        algySeverity.setOnItemSelectedListener(this);
+
+        // add ICE text fields that already exist in layout (order must be preserved)
+        EditText originalIceName = (EditText) findViewById(R.id.iCEName);
+        EditText originalIceNumber = (EditText) findViewById(R.id.iCENumber);
+        allICEContacts.add(originalIceName);
+        allICEContacts.add(originalIceNumber);
 
         // reference button to add another emergency contact
         Button addICE = (Button) findViewById(R.id.addICE);
@@ -42,6 +52,14 @@ public class FullProfileInput extends AppCompatActivity implements AdapterView.O
             }
         });
 
+
+
+        // add Allergy text fields that already exist in layout (order must be preserved)
+        EditText originalAllergen = (EditText) findViewById(R.id.allergen);
+        EditText originalSeverity = (EditText) findViewById(R.id.algySeverity);
+        allAllergies.add(originalAllergen);
+        allAllergies.add(originalSeverity);
+
         // reference button to add another allergy
         Button addAllergy = (Button) findViewById(R.id.addAllergy);
         addAllergy.setOnClickListener(new View.OnClickListener() {
@@ -51,41 +69,82 @@ public class FullProfileInput extends AppCompatActivity implements AdapterView.O
             }
         });
 
+
+
+        // add text fields that already exist in layout
+        EditText originalCondition = (EditText) findViewById(R.id.condition);
+        allConditions.add(originalCondition);
+
         // reference button to add another allergy
         Button addCondition = (Button) findViewById(R.id.addCondition);
         addCondition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 addConditions(v);
             }
         });
+
+
+
+        // add text fields that already exist in layout (order must be preserved)
+        EditText originalMedName = (EditText) findViewById(R.id.medicationName);
+        EditText originalDose = (EditText) findViewById(R.id.medicationDose);
+        EditText originalFrequency = (EditText) findViewById(R.id.medicationFrequency);
+        EditText originalMedNotes = (EditText) findViewById(R.id.medicationNotes);
+        allMedications.add(originalMedName);
+        allMedications.add(originalDose);
+        allMedications.add(originalFrequency);
+        allMedications.add(originalMedNotes);
 
         // reference button to add another allergy
         Button addMedication = (Button) findViewById(R.id.addMedication);
         addMedication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 addMedications(v);
             }
         });
+
+
+
+        // add text fields that already exist in layout (order must be preserved)
+        EditText originalVaccine = (EditText) findViewById(R.id.immunizationName);
+        EditText originalVaccineDate = (EditText) findViewById(R.id.immunizationDate);
+        allImmunizations.add(originalVaccine);
+        allImmunizations.add(originalVaccineDate);
 
         // reference button to add another allergy
         Button addVaccine = (Button) findViewById(R.id.addVaccine);
         addVaccine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 addImmunizations(v);
             }
         });
-    }
+
+        // reference submit button to submit all patient input
+        Button submitButton = (Button) findViewById(R.id.submitButton);
+        submitButton.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getInputData(patientID, allICEContacts, allAllergies, allConditions, allMedications,
+                        allImmunizations);
+            }
+        }));
+    } // end method onCreate
+
 
     private void addICEContacts(View v) {
-        // reference Constraint Layout of the page
+
+        // reference Linear Layout of the page
         LinearLayout iCELayout = (LinearLayout) findViewById(R.id.iCELayout);
 
         // create new text fields required to add an emergency contact
-        EditText iCEName2 = new EditText(FullProfileInput.this);
-        EditText iCENumber2 = new EditText(FullProfileInput.this);
+        EditText nextICEName = new EditText(FullProfileInput.this);
+        EditText nextICENumber = new EditText(FullProfileInput.this);
 
         // configure layout of new ICE name field
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -93,10 +152,10 @@ public class FullProfileInput extends AppCompatActivity implements AdapterView.O
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         params.setMargins(60, 48, 60, 0);
-        iCEName2.setLayoutParams(params);
-        iCEName2.setBackgroundResource(R.drawable.edit_text_border);
-        iCEName2.setHint("Name");
-        iCEName2.setTextSize(18);
+        nextICEName.setLayoutParams(params);
+        nextICEName.setBackgroundResource(R.drawable.edit_text_border);
+        nextICEName.setHint("Name");
+        nextICEName.setTextSize(18);
 
         // configure layout of new ICE number field
         LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
@@ -104,23 +163,28 @@ public class FullProfileInput extends AppCompatActivity implements AdapterView.O
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         params2.setMargins(60, 18, 60, 0);
-        iCENumber2.setLayoutParams(params2);
-        iCENumber2.setBackgroundResource(R.drawable.edit_text_border);
-        iCENumber2.setHint("Phone Number");
-        iCENumber2.setTextSize(18);
+        nextICENumber.setLayoutParams(params2);
+        nextICENumber.setBackgroundResource(R.drawable.edit_text_border);
+        nextICENumber.setHint("Phone Number");
+        nextICENumber.setTextSize(18);
 
-        //add the new text fields to the layout
-        iCELayout.addView(iCEName2);
-        iCELayout.addView(iCENumber2);
-    }
+        // add the new text fields to the layout
+        iCELayout.addView(nextICEName);
+        iCELayout.addView(nextICENumber);
+
+        // add the new text fields to the array list
+        allICEContacts.add(nextICEName);
+        allICEContacts.add(nextICENumber);
+    } // end method addICEContacts
+
 
     private void addAllergies(View v) {
         // reference Constraint Layout of the page
         LinearLayout allergyLayout = (LinearLayout) findViewById(R.id.allergyLayout);
 
         // create new objects required to add an allergy
-        EditText allergen2 = new EditText(FullProfileInput.this);
-        Spinner algySeverity2 = new Spinner(FullProfileInput.this);
+        EditText nextAllergen = new EditText(FullProfileInput.this);
+        EditText nextSeverity = new EditText(FullProfileInput.this);
 
         // configure layout of new allergen field
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -128,35 +192,39 @@ public class FullProfileInput extends AppCompatActivity implements AdapterView.O
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         params.setMargins(60, 48, 60, 0);
-        allergen2.setLayoutParams(params);
-        allergen2.setBackgroundResource(R.drawable.edit_text_border);
-        allergen2.setHint("Allergen");
-        allergen2.setTextSize(18);
+        nextAllergen.setLayoutParams(params);
+        nextAllergen.setBackgroundResource(R.drawable.edit_text_border);
+        nextAllergen.setHint("Allergen");
+        nextAllergen.setTextSize(18);
 
-        // configure layout of new severity dropdown
+        // configure layout of new severity field
+
         LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         params2.setMargins(60, 18, 60, 0);
-        algySeverity2.setLayoutParams(params2);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.severities,
-                android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        algySeverity2.setAdapter(adapter);
-        algySeverity2.setOnItemSelectedListener(this);
+        nextSeverity.setLayoutParams(params2);
+        nextSeverity.setBackgroundResource(R.drawable.edit_text_border);
+        nextSeverity.setHint("Enter mild, moderate, or severe");
+        nextSeverity.setTextSize(18);
 
-        //add the new text field and dropdown to the layout
-        allergyLayout.addView(allergen2);
-        allergyLayout.addView(algySeverity2);
-    }
+        // add the new text field and dropdown to the layout
+        allergyLayout.addView(nextAllergen);
+        allergyLayout.addView(nextSeverity);
+
+        // add the new text fields to the ArrayList
+        allAllergies.add(nextAllergen);
+        allAllergies.add(nextSeverity);
+    } // end method addAllergies
+
 
     private void addConditions(View v) {
-        // reference Constraint Layout of the page
+        // reference Linear Layout of the page
         LinearLayout conditionsLayout = (LinearLayout) findViewById(R.id.conditionsLayout);
 
         // create new objects required to add a new condition
-        EditText condition2 = new EditText(FullProfileInput.this);
+        EditText nextCondition = new EditText(FullProfileInput.this);
 
         // configure layout of new condition name field
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -164,24 +232,28 @@ public class FullProfileInput extends AppCompatActivity implements AdapterView.O
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         params.setMargins(60, 48, 60, 0);
-        condition2.setLayoutParams(params);
-        condition2.setBackgroundResource(R.drawable.edit_text_border);
-        condition2.setHint("Name of Condition");
-        condition2.setTextSize(18);
+        nextCondition.setLayoutParams(params);
+        nextCondition.setBackgroundResource(R.drawable.edit_text_border);
+        nextCondition.setHint("Name of Condition");
+        nextCondition.setTextSize(18);
 
-        //add the new text field to the layout
-        conditionsLayout.addView(condition2);
-    }
+        // add the new text field to the layout
+        conditionsLayout.addView(nextCondition);
+
+        // add the new text field to the ArrayList
+        allConditions.add(nextCondition);
+    } // end method addConditions
+
 
     private void addMedications(View v) {
-        // reference Constraint Layout of the page
+        // reference Linear Layout of the page
         LinearLayout medicationsLayout = (LinearLayout) findViewById(R.id.medicationsLayout);
 
         // create new text fields required to add a medication
-        EditText medicationName2 = new EditText(FullProfileInput.this);
-        EditText medicationDose2 = new EditText(FullProfileInput.this);
-        EditText medicationFrequency2 = new EditText(FullProfileInput.this);
-        EditText medicationNotes2 = new EditText(FullProfileInput.this);
+        EditText nextMedicationName = new EditText(FullProfileInput.this);
+        EditText nextMedicationDose = new EditText(FullProfileInput.this);
+        EditText nextMedicationFrequency = new EditText(FullProfileInput.this);
+        EditText nextMedicationNotes = new EditText(FullProfileInput.this);
 
         // configure layout of new medication name field
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -189,10 +261,10 @@ public class FullProfileInput extends AppCompatActivity implements AdapterView.O
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         params.setMargins(60, 48, 60, 0);
-        medicationName2.setLayoutParams(params);
-        medicationName2.setBackgroundResource(R.drawable.edit_text_border);
-        medicationName2.setHint("Name of Medication");
-        medicationName2.setTextSize(18);
+        nextMedicationName.setLayoutParams(params);
+        nextMedicationName.setBackgroundResource(R.drawable.edit_text_border);
+        nextMedicationName.setHint("Name of Medication");
+        nextMedicationName.setTextSize(18);
 
         // add new horizontal LinearLayout for dose & frequency textfields
         LinearLayout doseLayout2 = new LinearLayout(FullProfileInput.this);
@@ -209,10 +281,10 @@ public class FullProfileInput extends AppCompatActivity implements AdapterView.O
         );
         params2.weight = 1f;
         params2.setMargins(60, 18, 60, 0);
-        medicationDose2.setLayoutParams(params2);
-        medicationDose2.setBackgroundResource(R.drawable.edit_text_border);
-        medicationDose2.setHint("Dose");
-        medicationDose2.setTextSize(18);
+        nextMedicationDose.setLayoutParams(params2);
+        nextMedicationDose.setBackgroundResource(R.drawable.edit_text_border);
+        nextMedicationDose.setHint("Dose");
+        nextMedicationDose.setTextSize(18);
 
         // configure layout of new frequency field
         LinearLayout.LayoutParams params3 = new LinearLayout.LayoutParams(
@@ -221,10 +293,10 @@ public class FullProfileInput extends AppCompatActivity implements AdapterView.O
         );
         params3.weight = 1f;
         params3.setMargins(0, 18, 60, 0);
-        medicationFrequency2.setLayoutParams(params3);
-        medicationFrequency2.setBackgroundResource(R.drawable.edit_text_border);
-        medicationFrequency2.setHint("Frequency");
-        medicationFrequency2.setTextSize(18);
+        nextMedicationFrequency.setLayoutParams(params3);
+        nextMedicationFrequency.setBackgroundResource(R.drawable.edit_text_border);
+        nextMedicationFrequency.setHint("Frequency");
+        nextMedicationFrequency.setTextSize(18);
 
         // configure layout of new notes field
         LinearLayout.LayoutParams params4 = new LinearLayout.LayoutParams(
@@ -232,26 +304,33 @@ public class FullProfileInput extends AppCompatActivity implements AdapterView.O
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         params4.setMargins(60, 18, 60, 0);
-        medicationNotes2.setLayoutParams(params4);
-        medicationNotes2.setBackgroundResource(R.drawable.edit_text_border);
-        medicationNotes2.setHint("Notes");
-        medicationNotes2.setTextSize(18);
+        nextMedicationNotes.setLayoutParams(params4);
+        nextMedicationNotes.setBackgroundResource(R.drawable.edit_text_border);
+        nextMedicationNotes.setHint("Notes");
+        nextMedicationNotes.setTextSize(18);
 
-        //add the new text fields to the layout
-        medicationsLayout.addView(medicationName2);
+        // add the new text fields to the layout
+        medicationsLayout.addView(nextMedicationName);
         medicationsLayout.addView(doseLayout2);
-        doseLayout2.addView(medicationDose2);
-        doseLayout2.addView(medicationFrequency2);
-        medicationsLayout.addView(medicationNotes2);
+        doseLayout2.addView(nextMedicationDose);
+        doseLayout2.addView(nextMedicationFrequency);
+        medicationsLayout.addView(nextMedicationNotes);
+
+        // add the new text fields to the ArrayList
+        allMedications.add(nextMedicationName);
+        allMedications.add(nextMedicationDose);
+        allMedications.add(nextMedicationFrequency);
+        allMedications.add(nextMedicationNotes);
     }
 
+
     private void addImmunizations(View v) {
-        // reference Constraint Layout of the page
+        // reference Linear Layout of the page
         LinearLayout immunizationsLayout = (LinearLayout) findViewById(R.id.immunizationsLayout);
 
         // create new text fields required to add an emergency contact
-        EditText immunizationName2 = new EditText(FullProfileInput.this);
-        EditText immunizationDate2 = new EditText(FullProfileInput.this);
+        EditText nextImmunizationName = new EditText(FullProfileInput.this);
+        EditText nextImmunizationDate = new EditText(FullProfileInput.this);
 
         // configure layout of new ICE name field
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -259,10 +338,10 @@ public class FullProfileInput extends AppCompatActivity implements AdapterView.O
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         params.setMargins(60, 48, 60, 0);
-        immunizationName2.setLayoutParams(params);
-        immunizationName2.setBackgroundResource(R.drawable.edit_text_border);
-        immunizationName2.setHint("Name of Vaccine");
-        immunizationName2.setTextSize(18);
+        nextImmunizationName.setLayoutParams(params);
+        nextImmunizationName.setBackgroundResource(R.drawable.edit_text_border);
+        nextImmunizationName.setHint("Name of Vaccine");
+        nextImmunizationName.setTextSize(18);
 
         // configure layout of new ICE number field
         LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
@@ -270,32 +349,119 @@ public class FullProfileInput extends AppCompatActivity implements AdapterView.O
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         params2.setMargins(60, 18, 60, 0);
-        immunizationDate2.setLayoutParams(params2);
-        immunizationDate2.setBackgroundResource(R.drawable.edit_text_border);
-        immunizationDate2.setHint("Date Received (MM/DD/YYYY)");
-        immunizationDate2.setTextSize(18);
-        immunizationDate2.setInputType(InputType.TYPE_CLASS_DATETIME);
+        nextImmunizationDate.setLayoutParams(params2);
+        nextImmunizationDate.setBackgroundResource(R.drawable.edit_text_border);
+        nextImmunizationDate.setHint("Date Received (MM/DD/YYYY)");
+        nextImmunizationDate.setTextSize(18);
+        nextImmunizationDate.setInputType(InputType.TYPE_CLASS_DATETIME);
 
-        //add the new text fields to the layout
-        immunizationsLayout.addView(immunizationName2);
-        immunizationsLayout.addView(immunizationDate2);
-    }
+        // add the new text fields to the layout
+        immunizationsLayout.addView(nextImmunizationName);
+        immunizationsLayout.addView(nextImmunizationDate);
 
-    //THIS FUNCTION NEEDS TO BE TROUBLE SHOOTED - NOT DONE YET!!!
-    private void setEditTextID(String category, int count, EditText textField) {
-        String newID = category + String.valueOf(count);
-        textField.setId(count);
+        // add the new text fields to the ArrayList
+        allImmunizations.add(nextImmunizationName);
+        allImmunizations.add(nextImmunizationDate);
     }
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    //!!!WON'T WORK YET BECAUSE I CAN'T ACCESS PATIENT ID OR THE DATABASE!!!
+    private void getInputData(int patientID, ArrayList<EditText> allICEContacts,
+                              ArrayList<EditText> allAllergies, ArrayList<EditText> allConditions,
+                              ArrayList<EditText> allMedications, ArrayList<EditText>allImmunizations){
 
-    //THIS FUNCTION NEEDS TO BE COMPLETED - NOT DONE YET!!!
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //CODE TO HANDLE USER SELECTION FROM ALLERGY SEVERITY
-    }
+        final int NUM_OF_ICE_FIELDS = 2;
+        final int NUM_OF_ALGY_FIELDS = 2;
+        final int NUM_OF_MEDICATION_FIELDS = 4;
+        final int NUM_OF_IMMUNIZATION_FIELDS = 2;
 
-    //THIS FUNCTION NEEDS TO BE COMPLETED - NOT DONE YET!!!
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        //CODE TO HANDLE USER SELECTION FROM ALLERGY SEVERITY
-    }
+        // loop to get all of the ICE Contacts that were input by patient, increment by 2 because
+        // there are 2 ICE fields
+        for (int i = 0; i < allICEContacts.size(); i += NUM_OF_ICE_FIELDS) {
+            EditText nameField = allICEContacts.get(i);
+            EditText numberField = allICEContacts.get(i+1);
+            String name = nameField.getText().toString();
+            String phoneNumber = numberField.getText().toString();
+//            // add record to database
+//            db.addContact(patientID, name, phoneNumber);
+            System.out.println("ICE: " + name +" "+ phoneNumber);
+        }
+
+        // loop to get all of the Allergies that were input by patient, increment by 2 because
+        // there are 2 allergy fields
+        for (int i = 0; i < allAllergies.size(); i += NUM_OF_ALGY_FIELDS) {
+            EditText allergenField = allAllergies.get(i);
+            EditText severityField = allAllergies.get(i + 1);
+            String allergen = allergenField.getText().toString();
+            String severity = severityField.getText().toString().toLowerCase();
+
+            // convert severity to integer code
+            int severityCode = 0;
+            String severityValue = "";
+            switch (severity) {
+                case "mild":
+                    severityValue = "1";
+                    break;
+                case "moderate":
+                    severityValue = "2";
+                    break;
+                case "severe":
+                    severityValue = "3";
+                    break;
+                default:
+                    severityValue = "0";
+            }
+            if (!severityValue.equals("")){
+                severityCode = Integer.valueOf(severityValue);
+            }
+
+
+//            // add record to database (severity is stored as an integer)
+//            db.addAllergies(patientID, allergen, severityCode);
+            System.out.println("Allergy: " + allergen + " " + severity);
+        }
+
+        // loop to get all of the Conditions that were input by patient
+        for (int i = 0; i < allConditions.size(); i++) {
+            EditText conditionField = allConditions.get(i);
+            String condition = conditionField.getText().toString();
+//            // add record to database
+//            db.addCondition(patientID, condition);
+            System.out.println("Condition: " + condition);
+        }
+
+        // loop to get all of the Medications that were input by patient, increment by 4 because there
+        // are 4 med fields
+        for (int i = 0; i < allMedications.size(); i += NUM_OF_MEDICATION_FIELDS) {
+            EditText medNameField = allMedications.get(i);
+            EditText doseField = allMedications.get(i+1);
+            EditText frequencyField = allMedications.get(i+2);
+            EditText medNotesField = allMedications.get(i+3);
+
+            String medName = medNameField.getText().toString();
+            String dose = doseField.getText().toString();
+            String freq = frequencyField.getText().toString();
+            if (!freq.equals("")) {
+                int frequency = Integer.parseInt(freq);
+            }
+            String medNotes = medNotesField.getText().toString();
+
+//            // add record to database
+//            db.addMedication(patientID, medName, dose, frequency, medNotes);
+            System.out.println("Medication: " + medName + " " + dose + " " + freq + " " + medNotes);
+        }
+
+        // loop to get all of the Immunizations that were input by patient, increment by 2 because
+        // there are 2 immunization fields
+        for (int i = 0; i < allImmunizations.size(); i += NUM_OF_IMMUNIZATION_FIELDS) {
+            EditText vaccineField = allImmunizations.get(i);
+            EditText dateField = allImmunizations.get(i+1);
+            String vaccine = vaccineField.getText().toString();
+            String date = dateField.getText().toString();
+
+//            // add record to database
+//            db.addVaccine(patientID, vaccine, date);
+            System.out.println("Vaccine: " + vaccine + " " + date);
+        }
+    } // end method getInputData
+
 }
