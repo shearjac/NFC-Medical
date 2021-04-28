@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nfcmedical">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,16 +13,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NFCMedical">
-
         <activity android:name=".BasicFormParent"
-            android:label="@string/app_name">
+            android:label="NFC Medical">
+        </activity>
+        <activity android:name=".ModifyFullProfile">
+        </activity>
+        <activity android:name=".PatientOptions">
+        </activity>
+        <activity android:name=".WriteNFC">
+        </activity>
+        <activity android:name=".ReadNFC">
+        </activity>
+        <activity
+            android:name=".FullProfileInput"
+            android:label="NFC Medical">
+        </activity>
+        <activity android:name=".EmtLogin"></activity>
+        <activity android:name=".Main"></activity>
+        <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".SignUp">
+        </activity>
+        <activity android:name=".FullMedicalProfile">
+        </activity>
+        <activity android:name=".MedAlertProfile"> 
+        </activity>
     </application>
-
-
 </manifest>
