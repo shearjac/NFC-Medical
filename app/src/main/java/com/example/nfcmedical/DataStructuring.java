@@ -1,3 +1,4 @@
+package com.example.nfcmedical;
 public class DataStructuring {
 
     //Receive data from the basic form and translate that to NFC-structured data
@@ -7,8 +8,8 @@ public class DataStructuring {
             String[] customTextInput) //For custom user text input
     {
         //This array will be what we use to write into the NFC tag; we initialize it filled with blanks
-        char[] nfcBlock = new char[511];
-        for(int i=0;i<511;i++) nfcBlock[i]=' ';
+        char[] nfcBlock = new char[517];
+        for(int i=0;i<517;i++) nfcBlock[i]=' ';
         //Contained in these curly brackets are the assignments to nfcBlock[]
         {
             //Blood Type
@@ -179,6 +180,10 @@ public class DataStructuring {
             //Include ICE Number?
             if (doDont[37]) nfcBlock[4] = '1';
             else nfcBlock[4] = '0';
+            //User ID
+            for (int i = 0; i < 6; i++) {
+                nfcBlock[511 + i] = customTextInput[15].charAt(i);
+            }
         }
         encode(nfcBlock);
     }
@@ -188,7 +193,7 @@ public class DataStructuring {
     {
         //Concatenate the array of chars into a single string
         StringBuilder writable = new StringBuilder(String.valueOf(material[0]));
-        for(int i=1;i<511;i++)
+        for(int i=1;i<517;i++)
             writable.append(material[i]);
 
         /*
@@ -200,14 +205,14 @@ public class DataStructuring {
     public void decode()
     {
         String theReadData="foo";
-        char[] nfcBlock = new char[511];
+        char[] nfcBlock = new char[517];
 
         /*
         Place the data read from the NFC into the String
         */
 
         //Convert the string to a char array
-        for(int i=0;i<511;i++)
+        for(int i=0;i<517;i++)
         {
             nfcBlock[i] = theReadData.charAt(i);
         }
@@ -219,7 +224,7 @@ public class DataStructuring {
     //Take the scanned data char array and translate into Strings for the basic profile display
     public void expand(char[] material)
     {
-        String[] stringsFor = new String[18];
+        String[] stringsFor = new String[19];
         boolean[] booleansFor = new boolean[38];
 
         {
@@ -347,6 +352,10 @@ public class DataStructuring {
             stringsFor[17] = String.valueOf(material[481]);
             for (int i = 1; i < 30; i++)
                 stringsFor[17] = stringsFor[17] + material[481 + i];
+            //User ID
+            stringsFor[18] = String.valueOf(material[511]);
+            for (int i = 1; i < 6; i++)
+                stringsFor[18] = stringsFor[18] + material[511 + i];
         }
         {
             //Scroll through and copy values from NFC location 3-40
