@@ -14,8 +14,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import java.util.HashMap;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link NFC_Basic_Input_Form#newInstance} factory method to
@@ -117,7 +115,7 @@ public class NFC_Basic_Input_Form extends Fragment {
                 bloodType = choice.getText().toString();
             }
 
-            char bloodTypeSignature = getCharacterFromBloodType(bloodType);
+            char bloodTypeSignature = getBloodTypeSignature(bloodType);
 
             Log.i(TAG, "Blood type is " + bloodType);
             Log.i(TAG, "Blood type signature is "+Character.toString(bloodTypeSignature));
@@ -135,7 +133,7 @@ public class NFC_Basic_Input_Form extends Fragment {
                 kidneyStage = kidneyStageChoice.getText().toString();
             }
 
-            char kidneySignature = getCharacterFromChronicKidneyDisease(
+            char kidneySignature = getKidneyDiseaseSignature(
                     kidneyDiseaseCheckbox.isChecked(),
                     kidneyStage);
 
@@ -157,7 +155,7 @@ public class NFC_Basic_Input_Form extends Fragment {
                 diabetesTypeText = diabetesChoice.getText().toString();
             }
 
-            char diabetesSignature = getCharacterFromDiabetes(
+            char diabetesSignature = getDiabetesSignature(
                     diabetesCheck.isChecked(),
                     diabetesTypeText);
 
@@ -255,7 +253,7 @@ public class NFC_Basic_Input_Form extends Fragment {
         }
     }
 
-    private char getCharacterFromBloodType(String bloodType) {
+    private char getBloodTypeSignature(String bloodType) {
         if (bloodType.equals("A+")) {return (char)'A';}
         if (bloodType.equals("A-")) {return (char)'a';}
         if (bloodType.equals("B+")) {return (char)'B';}
@@ -267,7 +265,7 @@ public class NFC_Basic_Input_Form extends Fragment {
         return (char)'x';
     }
 
-    private char getCharacterFromChronicKidneyDisease(boolean checked, String kidneyStage) {
+    private char getKidneyDiseaseSignature(boolean checked, String kidneyStage) {
         if (checked) {
             if (kidneyStage.equals("I")) {return (char)'1';}
             if (kidneyStage.equals("II")) {return (char)'2';}
@@ -279,7 +277,7 @@ public class NFC_Basic_Input_Form extends Fragment {
         return (char)'0';
     }
 
-    private char getCharacterFromDiabetes(boolean checked, String diabetesType) {
+    private char getDiabetesSignature(boolean checked, String diabetesType) {
         if (checked) {
             if (diabetesType.equals("Type I")) {return (char)'1';}
             if (diabetesType.equals("Type II")) {return (char)'2';}
