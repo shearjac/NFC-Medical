@@ -13,27 +13,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NFCMedical">
-        <activity android:name=".EmtLogin">
-
+        <activity android:name=".BasicFormParent"
+            android:label="NFC Medical">
         </activity>
-        <activity android:name=".Main">
-
+        <activity android:name=".ModifyFullProfile">
         </activity>
+        <activity android:name=".PatientOptions">
+        </activity>
+        <activity android:name=".WriteNFC">
+        </activity>
+        <activity android:name=".ReadNFC">
+        </activity>
+        <activity
+            android:name=".FullProfileInput"
+            android:label="NFC Medical">
+        </activity>
+        <activity android:name=".EmtLogin"></activity>
+        <activity android:name=".Main"></activity>
         <activity android:name=".Login">
-
-        </activity>
-        <activity android:name=".SignUp" />
-        <activity android:name=".FullMedicalProfile">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MedAlertProfile">
-
-            
+        <activity android:name=".SignUp">
+        </activity>
+        <activity android:name=".FullMedicalProfile">
+        </activity>
+        <activity android:name=".MedAlertProfile"> 
         </activity>
     </application>
-
 </manifest>

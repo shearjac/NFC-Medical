@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NFC_Basic_Input_Form">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textBloodType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Blood Type"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+                <RadioGroup
+                    android:id="@+id/radioBloodType"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:addStatesFromChildren="false"
+                    android:clipChildren="false"
+                    android:orientation="vertical"
+                    android:outlineProvider="none"
+                    android:paddingLeft="20pt">
+
+                    <RadioButton
+                        android:id="@+id/APlus"
+                        android:layout_width="50pt"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="A+" />
+
+                    <RadioButton
+                        android:id="@+id/AMinus"
+                        android:layout_width="50pt"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="A-" />
+
+                    <RadioButton
+                        android:id="@+id/BPlus"
+                        android:layout_width="50pt"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="B+" />
+
+                    <RadioButton
+                        android:id="@+id/BMinus"
+                        android:layout_width="50pt"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="B-" />
+
+                    <RadioButton
+                        android:id="@+id/ABPlus"
+                        android:layout_width="50pt"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="AB+" />
+
+                    <RadioButton
+                        android:id="@+id/ABMinus"
+                        android:layout_width="50pt"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="AB-" />
+
+                    <RadioButton
+                        android:id="@+id/OPlus"
+                        android:layout_width="50pt"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="O+" />
+
+                    <RadioButton
+                        android:id="@+id/OMinus"
+                        android:layout_width="50pt"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="O-" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/textAllergiesSevere"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Allergies (Severe)"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+                <LinearLayout
+                    android:id="@+id/AllergiesLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="20pt">
+
+                    <TextView
+                        android:id="@+id/textEpipen"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Do you carry an Epipen?"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                    <RadioGroup
+                        android:id="@+id/radioEpipen"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="20pt">
+
+                        <RadioButton
+                            android:id="@+id/radioEpipenYes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Yes" />
+
+                        <RadioButton
+                            android:id="@+id/radioEpipenNo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="No" />
+                    </RadioGroup>
+
+                    <CheckBox
+                        android:id="@+id/checkboxSulfa"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sulfa drugs" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxPenicillin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Penicillin" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxAmoxicillin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Amoxicillin" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxNSAIDS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="NSAIDs" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxGenAn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="General Anesthetics" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxPeanut"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Peanuts" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxBeeStings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Bee Stings" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxLatex"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Latex" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxOtherAllergy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Other" />
+
+                    <EditText
+                        android:id="@+id/editTextOtherAllergy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20pt"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Please specify" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textMedicalConditions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medical Conditions"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+                <LinearLayout
+                    android:id="@+id/MedicalConditionsLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="20pt">
+
+                    <CheckBox
+                        android:id="@+id/checkboxAsthma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Asthma" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxDiabetes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Diabetes" />
+
+                    <RadioGroup
+                        android:id="@+id/diabetesType"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20pt">
+
+                        <RadioButton
+                            android:id="@+id/typeOne"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:text="Type I" />
+
+                        <RadioButton
+                            android:id="@+id/typeTwo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Type II" />
+
+                    </RadioGroup>
+
+                    <CheckBox
+                        android:id="@+id/checkboxAtrialFibrillation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Atrial Fibrillation" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxCoronaryArteryDisease"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Coronary Artery Disease" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxCongestiveHeartFailure"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Congestive Heart Failure" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxStroke"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Stroke" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxHypertension"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Hypertension" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxBleedingDisorder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Bleeding Disorder" />
+
+                    <EditText
+                        android:id="@+id/editTextBleedingDisorder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20pt"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Please specify" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxEpilepsy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Epilepsy" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxSeizureDisorder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Seizure Disorder" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxChronicKidneyDisorder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Chronic Kidney Disorder" />
+
+                    <LinearLayout
+                        android:id="@+id/kidneyStageLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20pt">
+
+                        <TextView
+                            android:id="@+id/textKidneyDisease"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".2"
+                            android:text="Stage"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                        <RadioGroup
+                            android:id="@+id/kidneyDiseaseStage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight=".8"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/stageOne"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="I" />
+
+                            <RadioButton
+                                android:id="@+id/stageTwo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="II" />
+
+                            <RadioButton
+                                android:id="@+id/stageThree"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="III" />
+
+                            <RadioButton
+                                android:id="@+id/stageFour"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="IV" />
+                        </RadioGroup>
+
+                    </LinearLayout>
+
+                    <CheckBox
+                        android:id="@+id/checkboxDementia"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".2"
+                        android:text="Dementia" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxBipolarDisorder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".2"
+                        android:text="Bipolar Disorder" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxSchizophrenia"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".2"
+                        android:text="Schizophrenia" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxPTSD"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".2"
+                        android:text="Post-Traumatic Stress Disorder" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxCancer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Active Cancer" />
+
+                    <EditText
+                        android:id="@+id/editTextCancerRegion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20pt"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Specify location/organ" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxMissingOrgan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Missing Organ" />
+
+                    <EditText
+                        android:id="@+id/editTextMissingOrgan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20pt"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Specify organ" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxTransplantedOrgan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Transplanted Organ" />
+
+                    <EditText
+                        android:id="@+id/editTextTransplantedOrgan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20pt"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Specify organ" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxOtherLifeThreateningCondition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Other Life Threatening Condition" />
+
+                    <EditText
+                        android:id="@+id/editTextOtherLifeThreateningCondition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20pt"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Specify" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxOtherCommunicationImpedingCondition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Other Conditions Preventing Communication" />
+
+                    <EditText
+                        android:id="@+id/editTextOtherCommunicationImpedingConditions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20pt"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Specify" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textImplantedDevices"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Implanted Devices"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+                <LinearLayout
+                    android:id="@+id/implantedDevicesLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="20pt">
+
+                    <CheckBox
+                        android:id="@+id/checkboxPacemaker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pacemaker" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxDefibrillator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Defibrillator" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxInsulinPump"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Insulin Pump" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxOtherImplantedDevice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Other" />
+
+                    <EditText
+                        android:id="@+id/editTextOtherImplantedDevice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20pt"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Please specify" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textHighRiskMedications2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="High Risk Medications"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+                <LinearLayout
+                    android:id="@+id/highRiskMedicationsLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20pt"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/checkboxAnticoagulant"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Anticoagulant" />
+
+                    <EditText
+                        android:id="@+id/editTextAnticoagulant"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20pt"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Please specify" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxAntiSeizureMedication"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Anti-Seizure Medication" />
+
+                    <EditText
+                        android:id="@+id/editTextAntiSeizureMedication"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20pt"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Please specify" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxDiabeticMedication"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Diabetic Medication" />
+
+                    <EditText
+                        android:id="@+id/editTextDiabeticMedication"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20pt"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Please specify" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxNarcotic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Narcotic" />
+
+                    <EditText
+                        android:id="@+id/editTextNarcotic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20pt"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Please specify" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textOptionalInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Optional Information"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+                <LinearLayout
+                    android:id="@+id/optionalInfoLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="20pt">
+
+                    <CheckBox
+                        android:id="@+id/checkboxNameIncluded"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Include name on basic medical alert info" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxIncludeIce"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Include ICE number on basic medical alert profile" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/buttonSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5pt"
+                    android:layout_marginRight="5pt"
+                    android:text="CONTINUE TO EXPANDED PROFILE" />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</FrameLayout>
