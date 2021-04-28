@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="16dp"
+        android:text="Full Medical Profile"
+        android:textColor="#E91E63"
+        android:textSize="42sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/nameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:text="Name:"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_below="@id/heading" />
+
+    <TextView
+        android:id="@+id/nameResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/heading"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@id/nameLabel"
+        android:text="Name Result"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/bloodTypeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:text="Blood Type:"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/dOBLabel" />
+
+
+    <TextView
+        android:id="@+id/bloodTypeResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dOBLabel"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@id/bloodTypeLabel"
+        android:text="Blood Type Result"
+        android:textSize="24sp" />
+
+
+
+
+
+    <TextView
+        android:id="@+id/dOBLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:text="DOB:"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/nameLabel" />
+
+
+    <TextView
+        android:id="@+id/doBResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameLabel"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@+id/dOBLabel"
+        android:text="Date of Birth Result"
+        android:textSize="24sp" />
+
+    <ExpandableListView
+        android:id="@+id/fullMedProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bloodTypeLabel"
+        android:paddingTop="12dp"></ExpandableListView>
+
+</RelativeLayout>
