@@ -6,8 +6,9 @@ public class DataStructuring {
             boolean[] doDont,  //For bool answers
             String[] customTextInput) //For custom user text input
     {
-        //This array will be what we use to write into the NFC tag
+        //This array will be what we use to write into the NFC tag; we initialize it filled with blanks
         char[] nfcBlock = new char[511];
+        for(int i=0;i<511;i++) nfcBlock[i]=' ';
         //Contained in these curly brackets are the assignments to nfcBlock[]
         {
             //Blood Type
@@ -39,7 +40,7 @@ public class DataStructuring {
             //Other Ag (t/f & custom entry)
             if (doDont[8]) {
                 nfcBlock[29] = '1';
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < customTextInput[3].length(); i++) {
                     nfcBlock[101 + i] = customTextInput[3].charAt(i);
                 }
             } else nfcBlock[29] = '0';
@@ -69,7 +70,7 @@ public class DataStructuring {
             //Bleeding Disorder (t/f & custom entry)
             if (doDont[16]) {
                 nfcBlock[30] = '1';
-                for (int i = 0; i < 30; i++) {
+                for (int i = 0; i < customTextInput[4].length(); i++) {
                     nfcBlock[121 + i] = customTextInput[4].charAt(i);
                 }
             } else nfcBlock[30] = '0';
@@ -96,35 +97,35 @@ public class DataStructuring {
             //Active Cancer (t/f & custom entry)
             if (doDont[23]) {
                 nfcBlock[31] = '1';
-                for (int i = 0; i < 30; i++) {
+                for (int i = 0; i < customTextInput[5].length(); i++) {
                     nfcBlock[151 + i] = customTextInput[5].charAt(i);
                 }
             } else nfcBlock[31] = '0';
             //Missing Organ (t/f & custom entry)
             if (doDont[24]) {
                 nfcBlock[32] = '1';
-                for (int i = 0; i < 30; i++) {
+                for (int i = 0; i < customTextInput[6].length(); i++) {
                     nfcBlock[181 + i] = customTextInput[6].charAt(i);
                 }
             } else nfcBlock[32] = '0';
             //Transplanted Organ (t/f & custom entry)
             if (doDont[25]) {
                 nfcBlock[33] = '1';
-                for (int i = 0; i < 30; i++) {
+                for (int i = 0; i < customTextInput[7].length(); i++) {
                     nfcBlock[211 + i] = customTextInput[7].charAt(i);
                 }
             } else nfcBlock[33] = '0';
             //Other Life-Threatening Conditions (t/f & custom entry)
             if (doDont[26]) {
                 nfcBlock[34] = '1';
-                for (int i = 0; i < 60; i++) {
+                for (int i = 0; i < customTextInput[8].length(); i++) {
                     nfcBlock[241 + i] = customTextInput[8].charAt(i);
                 }
             } else nfcBlock[34] = '0';
             //Other Communicative Conditions (t/f & custom entry)
             if (doDont[27]) {
                 nfcBlock[35] = '1';
-                for (int i = 0; i < 60; i++) {
+                for (int i = 0; i < customTextInput[9].length(); i++) {
                     nfcBlock[301 + i] = customTextInput[9].charAt(i);
                 }
             } else nfcBlock[35] = '0';
@@ -140,35 +141,35 @@ public class DataStructuring {
             //Other Implant (t/f & custom entry)
             if (doDont[31]) {
                 nfcBlock[36] = '1';
-                for (int i = 0; i < 30; i++) {
+                for (int i = 0; i < customTextInput[10].length(); i++) {
                     nfcBlock[361 + i] = customTextInput[10].charAt(i);
                 }
             } else nfcBlock[36] = '0';
             //Anticoagulant (t/f & custom entry)
             if (doDont[32]) {
                 nfcBlock[37] = '1';
-                for (int i = 0; i < 30; i++) {
+                for (int i = 0; i < customTextInput[11].length(); i++) {
                     nfcBlock[391 + i] = customTextInput[11].charAt(i);
                 }
             } else nfcBlock[37] = '0';
             //Anti-Seizure Med (t/f & custom entry)
             if (doDont[33]) {
                 nfcBlock[38] = '1';
-                for (int i = 0; i < 30; i++) {
+                for (int i = 0; i < customTextInput[12].length(); i++) {
                     nfcBlock[421 + i] = customTextInput[12].charAt(i);
                 }
             } else nfcBlock[38] = '0';
             //Diabetic Med (t/f & custom entry)
             if (doDont[34]) {
                 nfcBlock[39] = '1';
-                for (int i = 0; i < 30; i++) {
+                for (int i = 0; i < customTextInput[13].length(); i++) {
                     nfcBlock[451 + i] = customTextInput[13].charAt(i);
                 }
             } else nfcBlock[39] = '0';
             //Narcotic (t/f & custom entry)
             if (doDont[35]) {
                 nfcBlock[40] = '1';
-                for (int i = 0; i < 30; i++) {
+                for (int i = 0; i < customTextInput[14].length(); i++) {
                     nfcBlock[481 + i] = customTextInput[14].charAt(i);
                 }
             } else nfcBlock[40] = '0';
@@ -222,6 +223,7 @@ public class DataStructuring {
         boolean[] booleansFor = new boolean[38];
 
         {
+            //Blood Type
             switch (material[0]) {
                 case 'A':
                     stringsFor[3] = "A+";
@@ -248,6 +250,7 @@ public class DataStructuring {
                     stringsFor[3] = "O-";
                     break;
             }
+            //CKD
             switch (material[1]) {
                 case '0':
                     stringsFor[4] = "None";
@@ -268,6 +271,7 @@ public class DataStructuring {
                     stringsFor[4] = "Unspecified";
                     break;
             }
+            //Diabetes
             switch (material[2]) {
                 case '0':
                     stringsFor[5] = "None";
@@ -282,35 +286,66 @@ public class DataStructuring {
                     stringsFor[5] = "Unspecified";
                     break;
             }
-            for (int i = 0; i < 25; i++)
+
+            //Name
+            stringsFor[0] = String.valueOf(material[41]);
+            for (int i = 1; i < 25; i++)
                 stringsFor[0] = stringsFor[0] + material[41 + i];
-            for (int i = 0; i < 25; i++)
+            //ICE Name
+            stringsFor[1] = String.valueOf(material[66]);
+            for (int i = 1; i < 25; i++)
                 stringsFor[1] = stringsFor[1] + material[66 + i];
-            for (int i = 0; i < 10; i++)
+            //ICE Number
+            stringsFor[2] = String.valueOf(material[91]);
+            for (int i = 1; i < 10; i++)
                 stringsFor[2] = stringsFor[2] + material[91 + i];
-            for (int i = 0; i < 20; i++)
+            //Other Allergy
+            stringsFor[6] = String.valueOf(material[101]);
+            for (int i = 1; i < 20; i++)
                 stringsFor[6] = stringsFor[6] + material[101 + i];
-            for (int i = 0; i < 30; i++)
+            //Bleeding Disorder
+            stringsFor[7] = String.valueOf(material[121]);
+            for (int i = 1; i < 30; i++)
                 stringsFor[7] = stringsFor[7] + material[121 + i];
-            for (int i = 0; i < 30; i++)
+            //Active Cancer
+            stringsFor[8] = String.valueOf(material[151]);
+            for (int i = 1; i < 30; i++)
                 stringsFor[8] = stringsFor[8] + material[151 + i];
-            for (int i = 0; i < 30; i++)
+            //Missing Organ
+            stringsFor[9] = String.valueOf(material[181]);
+            for (int i = 1; i < 30; i++)
                 stringsFor[9] = stringsFor[9] + material[181 + i];
-            for (int i = 0; i < 30; i++)
+            //Transplanted Organ
+            stringsFor[10] = String.valueOf(material[211]);
+            for (int i = 1; i < 30; i++)
                 stringsFor[10] = stringsFor[10] + material[211 + i];
-            for (int i = 0; i < 60; i++)
+            //Other L-T Condition
+            stringsFor[11] = String.valueOf(material[241]);
+            for (int i = 1; i < 60; i++)
                 stringsFor[11] = stringsFor[11] + material[241 + i];
-            for (int i = 0; i < 60; i++)
+            //Other Comm Condition
+            stringsFor[12] = String.valueOf(material[301]);
+            for (int i = 1; i < 60; i++)
                 stringsFor[12] = stringsFor[12] + material[301 + i];
-            for (int i = 0; i < 30; i++)
+            //Other Implant
+            stringsFor[13] = String.valueOf(material[361]);
+            for (int i = 1; i < 30; i++)
                 stringsFor[13] = stringsFor[13] + material[361 + i];
-            for (int i = 0; i < 30; i++)
+            //Anticoagulant
+            stringsFor[14] = String.valueOf(material[391]);
+            for (int i = 1; i < 30; i++)
                 stringsFor[14] = stringsFor[14] + material[391 + i];
-            for (int i = 0; i < 30; i++)
+            //Anti-Seizure
+            stringsFor[15] = String.valueOf(material[421]);
+            for (int i = 1; i < 30; i++)
                 stringsFor[15] = stringsFor[15] + material[421 + i];
-            for (int i = 0; i < 30; i++)
+            //Anti-Diabetic
+            stringsFor[16] = String.valueOf(material[451]);
+            for (int i = 1; i < 30; i++)
                 stringsFor[16] = stringsFor[16] + material[451 + i];
-            for (int i = 0; i < 30; i++)
+            //Narcotic
+            stringsFor[17] = String.valueOf(material[481]);
+            for (int i = 1; i < 30; i++)
                 stringsFor[17] = stringsFor[17] + material[481 + i];
         }
         {
