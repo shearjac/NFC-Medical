@@ -1,9 +1,9 @@
-package com.example.nfcmedical;
+package com.example.nfcmedical.DBClasses;
 
 public class EmergencyContact {
 
     int patientId;
-    String name;
+    String name = "";
     String phoneNumber;
 
     public EmergencyContact(int patientId, String phoneNumber) {
@@ -39,5 +39,10 @@ public class EmergencyContact {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString(){
+        return name + " " + phoneNumber;
     }
 }

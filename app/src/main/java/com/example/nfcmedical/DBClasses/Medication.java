@@ -1,4 +1,4 @@
-package com.example.nfcmedical;
+package com.example.nfcmedical.DBClasses;
 
 public class Medication {
 
@@ -59,5 +59,10 @@ public class Medication {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    @Override
+    public String toString() {
+        return name + " " + dose + " " + frequency + " " + notes;
     }
 }

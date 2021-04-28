@@ -1,4 +1,4 @@
-package com.example.nfcmedical;
+package com.example.nfcmedical.DBClasses;
 
 public class Condition {
 
@@ -26,4 +26,8 @@ public class Condition {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -7,14 +7,16 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.example.nfcmedical.DBClasses.Allergies;
+import com.example.nfcmedical.DBClasses.Condition;
+import com.example.nfcmedical.DBClasses.EmergencyContact;
+import com.example.nfcmedical.DBClasses.Medication;
+import com.example.nfcmedical.DBClasses.Vaccine;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -60,28 +62,28 @@ public class DB {
         login.execute(username, password);
     }
 
-    public void addVaccine(int patientId, String name, String date){//date format should be YYYY-MM-DD
-        String sql = "INSERT INTO vaccines VALUES (" + patientId + ", '" + name + "', '" + date + "')";
+    public void addVaccine(Vaccine v){//date format should be YYYY-MM-DD
+        String sql = "INSERT INTO vaccines VALUES (" + v.getPatientId() + ", '" + v.getName() + "', '" + v.getDate() + "')";
         updateSQL(sql);
     }
 
-    public void addAllergies(int patientId, String name, int severity){
-        String sql = "INSERT INTO allergies VALUES (" + patientId + ", '" + name + "', " + severity + ")";
+    public void addAllergies(Allergies a){
+        String sql = "INSERT INTO allergies VALUES (" + a.getPatientId() + ", '" + a.getName() + "', " + a.getSeverity() + ")";
         updateSQL(sql);
     }
 
-    public void addCondition(int patientId, String name){
-        String sql = "INSERT INTO conditions VALUES (" + patientId + ", '" + name + "')";
+    public void addCondition(Condition c){
+        String sql = "INSERT INTO conditions VALUES (" + c.getPatientId() + ", '" + c.getName() + "')";
         updateSQL(sql);
     }
 
-    public void addMedication(int patientId, String name, String dose, int frequency, String notes){
-        String sql = "INSERT INTO medications VALUES (" + patientId + ", '" + name + "', '" + dose + "', " + frequency + ", '" + notes + "')";
+    public void addMedication(Medication m){
+        String sql = "INSERT INTO medications VALUES (" + m.getPatientId() + ", '" + m.getName() + "', '" + m.getDose() + "', " + m.getFrequency() + ", '" + m.getNotes() + "')";
         updateSQL(sql);
     }
 
-    public void addContact(int patientId, String name, String phoneNumber){
-        String sql = "INSERT INTO emergency_contact VALUES (" + patientId + ", '" + name + "', '" + phoneNumber + "')";
+    public void addContact(EmergencyContact em){
+        String sql = "INSERT INTO emergency_contact VALUES (" + em.getPatientId() + ", '" + em.getName() + "', '" + em.getPhoneNumber() + "')";
         updateSQL(sql);
     }
 

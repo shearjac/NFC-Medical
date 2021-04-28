@@ -1,4 +1,4 @@
-package com.example.nfcmedical;
+package com.example.nfcmedical.DBClasses;
 
 public class Vaccine {
 
@@ -40,4 +40,10 @@ public class Vaccine {
         this.name = name;
         this.date = date;
     }
+
+    @Override
+    public String toString(){
+        return name + " " + date;
+    }
+
 }
