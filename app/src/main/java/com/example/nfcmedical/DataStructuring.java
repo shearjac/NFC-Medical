@@ -203,7 +203,7 @@ public class DataStructuring {
     }
 
     //NFC data read into String, String -> char array
-    public void decode()
+    public char[] decode()
     {
         String theReadData="foo";
         char[] nfcBlock = new char[517];
@@ -218,9 +218,8 @@ public class DataStructuring {
             nfcBlock[i] = theReadData.charAt(i);
         }
 
-        //Send the array to the expander
-        expandStrings(nfcBlock);
-        expandBooleans(nfcBlock);
+        //Return the char array to the profile display
+        return nfcBlock;
     }
 
     //Take the scanned data char array and translate into Strings for the basic profile display
