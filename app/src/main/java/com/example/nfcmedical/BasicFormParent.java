@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
 
 public class BasicFormParent extends AppCompatActivity {
-    NFC_Basic_Input_Form basicForm;
+    private NFC_Basic_Input_Form basicForm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
