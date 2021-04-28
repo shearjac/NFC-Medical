@@ -43,6 +43,6 @@ public class Allergies {
 
     @Override
     public String toString() {
-        return name + " " + severity;
+        return name + " - " + severity;
     }
 }

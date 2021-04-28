@@ -30,22 +30,24 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// we need to have the patient id passed to the full medical profile!!! both when patient logs-in and
+// from the method that translates data after scan of the NFC tag
+// IT'S NOT CURRENTLY POPULATING DB DATA, NOT SURE IF IT'S AN ISSUE WITH HOW IT'S BEING QUERIED OR HOW
+// I'VE CONVERTED THE QUERY RESULT ARRAY LISTS INTO STRING ARRAY LISTS  (lines 129-185). IT WORKS WITH THE TEST DATA.
 public class FullMedicalProfile extends AppCompatActivity {
-
+    private int thisPatientID;
     ExpandableListView fullMedProfile;
     String[] categories;
     ArrayList<String> profileHeadings = new ArrayList<>();
     HashMap<String, ArrayList<String>> categoryResults = new HashMap<>();
     CategoryAdapter adapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_medical_profile);
 
-
-        //Variables
         fullMedProfile = findViewById(R.id.fullMedProfile);
         //populate array with names of categories in the full profile
         Resources res = getResources();
@@ -56,10 +58,10 @@ public class FullMedicalProfile extends AppCompatActivity {
 
         //Variables that will be fetched from database
         ArrayList<Allergies> allergies = new ArrayList<>();
-        ArrayList<Condition> condition = new ArrayList<>();
-        ArrayList<EmergencyContact> emergencyContact = new ArrayList<>();
-        ArrayList<Medication> medication = new ArrayList<>();
-        ArrayList<Vaccine> vaccine = new ArrayList<>();
+        ArrayList<Condition> conditions = new ArrayList<>();
+        ArrayList<EmergencyContact> emergencyContacts = new ArrayList<>();
+        ArrayList<Medication> medications = new ArrayList<>();
+        ArrayList<Vaccine> vaccines = new ArrayList<>();
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
@@ -68,6 +70,9 @@ public class FullMedicalProfile extends AppCompatActivity {
             public void run() {
 
                 Connection con = connectionClass(); //Connect to database
+                ///////////////////////////////////////////////////////////////////////
+                // I think we need to add a "WHERE patientId = thisPatientID" clause to each query
+                // (once we implement getting that data from the previous screen)
                 try{
                     String queryAllergies = "SELECT * FROM allergies";
                     String queryCondition = "SELECT * FROM conditions";
@@ -86,25 +91,25 @@ public class FullMedicalProfile extends AppCompatActivity {
                     rs = stmt.executeQuery(queryCondition);
                     while(rs.next()){
                         Condition c = new Condition(rs.getInt("patientId"), rs.getString("name"));
-                        condition.add(c);
+                        conditions.add(c);
                     }
 
                     rs = stmt.executeQuery(queryEmergencyContact);
                     while(rs.next()){
                         EmergencyContact e = new EmergencyContact(rs.getInt("patientId"), rs.getString("name"), rs.getString("phoneNumber"));
-                        emergencyContact.add(e);
+                        emergencyContacts.add(e);
                     }
 
                     rs = stmt.executeQuery(queryMedication);
                     while(rs.next()){
                         Medication m = new Medication(rs.getInt("patientId"), rs.getString("name"), rs.getString("dose"), rs.getInt("frequency"), rs.getString("notes"));
-                        medication.add(m);
+                        medications.add(m);
                     }
 
                     rs = stmt.executeQuery(queryVaccine);
                     while(rs.next()){
                         Vaccine v = new Vaccine(rs.getInt("patientId"), rs.getString("name"), rs.getString("date"));
-                        vaccine.add(v);
+                        vaccines.add(v);
                     }
 
                     stmt.close();
@@ -122,30 +127,106 @@ public class FullMedicalProfile extends AppCompatActivity {
                         //DATA WITH MULTIPLE FIELD NEEDS TO BE CONVERTED TO A STRING THAT WILL DISPLAY ON ONE LINE
                         //FOR EXAMPLE, IN MEDICATIONS: levothyroxine 75 mcg 1x/day
 
-                        //currently using for loop to populate placeholder data items for results in each category
+                        // convert ArrayLists of each class to an array list of Strings (e.g. AllergiesObject.toString)
+                        // convert ICE Contacts
+                        ArrayList<String> patientContacts = new ArrayList<>();
+                        for (EmergencyContact iceCon: emergencyContacts) {
+                            patientContacts.add(iceCon.toString());
+                        }
+                        ////////////////REMOVE THIS AFTER TESTING!/////////////
+                        //ADD TEST DATA
+                        patientContacts.add("Jane Smith \n(303) 507-8374");
+                        patientContacts.add("Harmony Smith \n(615) 593-2830");
+
+
+                        // convert Allergies
+                        ArrayList<String> patientAllergies = new ArrayList<>();
+                        for (Allergies algy: allergies) {
+                            patientAllergies.add(algy.toString());
+                        }
+                        ////////////////REMOVE THIS AFTER TESTING!/////////////
+                        //ADD TEST DATA
+                        patientAllergies.add("Sulfa Drugs - mild");
+                        patientAllergies.add("Bee Stings - mild");
+                        patientAllergies.add("Bad Group Members - severe");
+
+
+                        // convert Conditions
+                        ArrayList<String> patientConditions = new ArrayList<>();
+                        for (Condition cond: conditions) {
+                            patientConditions.add(cond.toString());
+                        }
+                        ////////////////REMOVE THIS AFTER TESTING!/////////////
+                        //ADD TEST DATA
+                        patientConditions.add("Primary Myelofibrosis");
+                        patientConditions.add("Type II Diabetes");
+                        patientConditions.add("Osteoarthritis");
+                        patientConditions.add("Hypothyroidism");
+                        patientConditions.add("PVOD");
+
+
+                        // convert Medications
+                        ArrayList<String> patientMedications = new ArrayList<>();
+                        for (Medication med: medications) {
+                            patientMedications.add(med.toString());
+                        }
+                        ////////////////REMOVE THIS AFTER TESTING!/////////////
+                        //ADD TEST DATA
+                        patientMedications.add("levothyroxine 75 mcg 1 time/day \ntake at 6 am");
+                        patientMedications.add("hydroxyurea 100 mg 3 time/day \ndo not touch powder from broken capsule");
+                        patientMedications.add("lisinopril 20 mg 2 time/day\n");
+                        patientMedications.add("metformin 50 mg 3 time/day \ntake with meals");
+                        patientMedications.add("potassium 70 mEq 1 time/day\n");
+
+
+                        // convert Immunizations
+                        ArrayList<String> patientVaccines = new ArrayList<>();
+                        for(Vaccine vax: vaccines) {
+                            patientVaccines.add(vax.toString());
+                        }
+                        ////////////////REMOVE THIS AFTER TESTING!/////////////
+                        //ADD TEST DATA
+                        patientVaccines.add("Covid-19 04/22/2021");
+                        patientVaccines.add("Rabies 12/05/2018");
+
+
+                        //populate data in each category from results obtained when querying db
                         for (int i = 0; i < profileHeadings.size(); i++) {
                             //create an arrayList to initially hold child values (database results for this app)
+                            ArrayList<String> currentCategoryResults = new ArrayList<>();
                             ArrayList<String> children = new ArrayList<>();
-                            //add 5 placeholder items for each category
-                            for (int j = 0; j < 5; j++) {
-                                children.add("Item " + j);
+                            String categoryName = profileHeadings.get(i);
+
+                            switch (categoryName) {
+
+                                case "Emergency Contacts": currentCategoryResults = patientContacts;
+                                                           break;
+                                case "Allergies": currentCategoryResults = patientAllergies;
+                                                             break;
+                                case "Medical Conditions": currentCategoryResults = patientConditions;
+                                                           break;
+                                case "Medications": currentCategoryResults = patientMedications;
+                                                    break;
+                                case "Immunizations": currentCategoryResults = patientVaccines;
+                                                      break;
+                                default:
                             }
+
+                            //add results each category
+                            for (int j = 0; j < currentCategoryResults.size(); j++) {
+                                children.add(currentCategoryResults.get(j));
+                            }
+
                             //add values to categoryResults Hash Map
                             categoryResults.put(profileHeadings.get(i), children);
                         }
 
                         adapter = new CategoryAdapter(profileHeadings, categoryResults);
                         fullMedProfile.setAdapter(adapter);
-
-
                     }
                 });
             }
         });
-
-
-
-
     }
 
     @SuppressLint("NewApi")
@@ -168,5 +249,4 @@ public class FullMedicalProfile extends AppCompatActivity {
         }
         return connection;
     }
-
 }

@@ -43,6 +43,6 @@ public class EmergencyContact {
 
     @Override
     public String toString(){
-        return name + " " + phoneNumber;
+        return name + "/n" + phoneNumber;
     }
 }
