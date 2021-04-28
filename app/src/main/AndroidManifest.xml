@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NFCMedical">
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".BasicFormParent"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
