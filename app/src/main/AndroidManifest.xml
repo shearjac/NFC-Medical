@@ -13,6 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NFCMedical">
+        <activity android:name=".BasicFormParent"
+            android:label="NFC Medical">
+        </activity>
         <activity android:name=".ModifyFullProfile">
         </activity>
         <activity android:name=".PatientOptions">
