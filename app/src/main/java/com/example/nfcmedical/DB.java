@@ -171,7 +171,7 @@ public class DB {
             }
             if(isSuccess){
                 Log.d("query: ", queryResult);
-                Intent intent = new Intent(context, Main.class); //redirect
+                Intent intent = new Intent(context, NFC_Basic_Input_Form.class); //redirect
                 context.startActivity(intent);
             }
         }
