@@ -34,11 +34,10 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// we need to have the patient id passed to the full medical profile!!! both when patient logs-in and
-// from the method that translates data after scan of the NFC tag
 public class FullMedicalProfile extends AppCompatActivity {
-    private int thisPatientID;
+    FullProfileInput profile = new FullProfileInput();
+    private int patientID;
+
     ExpandableListView fullMedProfile;
     String[] categories;
     ArrayList<String> profileHeadings = new ArrayList<>();
@@ -49,6 +48,9 @@ public class FullMedicalProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_medical_profile);
+
+        // getPatientID and convert to int (stored as int in db)
+        patientID = Integer.valueOf(getPatientID());
 
         fullMedProfile = findViewById(R.id.fullMedProfile);
         //populate array with names of categories in the full profile
@@ -71,15 +73,12 @@ public class FullMedicalProfile extends AppCompatActivity {
             @Override
             public void run() {
                 Connection con = connectionClass(); //Connect to database
-                ///////////////////////////////////////////////////////////////////////
-                // I think we need to add a "WHERE patientId = thisPatientID" clause to each query
-                // (once we implement getting that data from the previous screen)
                 try{
-                    String queryAllergies = "SELECT * FROM allergies";
-                    String queryCondition = "SELECT * FROM conditions";
-                    String queryEmergencyContact = "SELECT * FROM emergency_contact";
-                    String queryMedication = "SELECT * FROM medications";
-                    String queryVaccine = "SELECT * FROM vaccines";
+                    String queryAllergies = "SELECT * FROM allergies WHERE patient_id = patientID";
+                    String queryCondition = "SELECT * FROM conditions WHERE patient_id = patientID";
+                    String queryEmergencyContact = "SELECT * FROM emergency_contact WHERE patient_id = patientID";
+                    String queryMedication = "SELECT * FROM medications WHERE patient_id = patientID";
+                    String queryVaccine = "SELECT * FROM vaccines WHERE patient_id = patientID";
 
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(queryAllergies);
@@ -129,30 +128,46 @@ public class FullMedicalProfile extends AppCompatActivity {
                         for (EmergencyContact iceCon: emergencyContacts) {
                             patientContacts.add(iceCon.toString());
                         }
+                        /////////////////////////////     TEST DATA     ////////////////////////////
+                        patientContacts.add("Test Emergency Contact 1 \n 2128904533");
 
                         // convert Allergies
                         ArrayList<String> patientAllergies = new ArrayList<>();
                         for (Allergies algy: allergies) {
                             patientAllergies.add(algy.toString());
                         }
+                        /////////////////////////////     TEST DATA     ////////////////////////////
+                        patientAllergies.add("Test Allergy 1 - 2");
+                        patientAllergies.add("Test Allergy 2 - 1");
 
                         // convert Conditions
                         ArrayList<String> patientConditions = new ArrayList<>();
                         for (Condition cond: conditions) {
                             patientConditions.add(cond.toString());
                         }
+                        /////////////////////////////     TEST DATA     ////////////////////////////
+                        patientConditions.add("Test Condition 1");
+                        patientConditions.add("Test Condition 2");
+                        patientConditions.add("Test Condition 3");
 
                         // convert Medications
                         ArrayList<String> patientMedications = new ArrayList<>();
                         for (Medication med: medications) {
                             patientMedications.add(med.toString());
                         }
+                        /////////////////////////////     TEST DATA     ////////////////////////////
+                        patientMedications.add("Test Medication 1");
+                        patientMedications.add("Test Medication 2");
+                        patientMedications.add("Test Medication 3");
 
                         // convert Immunizations
                         ArrayList<String> patientVaccines = new ArrayList<>();
                         for(Vaccine vax: vaccines) {
                             patientVaccines.add(vax.toString());
                         }
+                        /////////////////////////////     TEST DATA     ////////////////////////////
+                        patientVaccines.add("Test Vaccine 1");
+                        patientVaccines.add("Test Vaccine 2");
 
                         //populate data in each category from results obtained when querying db
                         for (int i = 0; i < profileHeadings.size(); i++) {
@@ -212,5 +227,12 @@ public class FullMedicalProfile extends AppCompatActivity {
             Log.e("error here 3: ", e.getMessage());
         }
         return connection;
+    }
+
+    public String getPatientID() {
+        SessionManager sessionManager = new SessionManager(this);
+        HashMap<String, String> userDetails = sessionManager.getUserDetailFromSession();
+        String id = userDetails.get(SessionManager.KEY_ID);
+        return id;
     }
 }
