@@ -6,11 +6,14 @@ package com.example.nfcmedical;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class ModifyFullProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -26,6 +29,15 @@ public class ModifyFullProfile extends AppCompatActivity implements AdapterView.
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         algySeverity.setAdapter(adapter);
         algySeverity.setOnItemSelectedListener(this);
+
+        Button modifyDoneButton = (Button) findViewById(R.id.modifyDoneButton);
+        modifyDoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PatientOptions.class); //redirect
+                startActivity(intent);
+            }
+        });
     }
 
     //THIS FUNCTION NEEDS TO BE COMPLETED - NOT DONE YET!!!
