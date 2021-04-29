@@ -50,14 +50,14 @@
         android:text="Blood Type:"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_below="@+id/dOBLabel" />
+        android:layout_below="@+id/nameLabel" />
 
 
     <TextView
         android:id="@+id/bloodTypeResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/dOBLabel"
+        android:layout_below="@+id/nameLabel"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="12dp"
         android:layout_toRightOf="@id/bloodTypeLabel"
@@ -66,30 +66,6 @@
 
 
 
-
-
-    <TextView
-        android:id="@+id/dOBLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
-        android:text="DOB:"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/nameLabel" />
-
-
-    <TextView
-        android:id="@+id/doBResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/nameLabel"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_toRightOf="@+id/dOBLabel"
-        android:text="Date of Birth Result"
-        android:textSize="24sp" />
 
     <ExpandableListView
         android:id="@+id/fullMedProfile"

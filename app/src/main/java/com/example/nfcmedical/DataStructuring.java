@@ -9,7 +9,7 @@ public class DataStructuring {
             String[] customTextInput) //For custom user text input
     {
         //This array will be what we use to write into the NFC tag; we initialize it filled with blanks
-        char[] nfcBlock = new char[517];
+        char[] nfcBlock = new char[518];
         for(int i=0;i<517;i++) nfcBlock[i]=' ';
         //Contained in these curly brackets are the assignments to nfcBlock[]
         {
@@ -182,9 +182,9 @@ public class DataStructuring {
             if (doDont[37]) nfcBlock[4] = '1';
             else nfcBlock[4] = '0';
             //User ID
-//            for (int i = 0; i < 6; i++) {
-//                nfcBlock[511 + i] = customTextInput[15].charAt(i);
-//            }
+            for (int i = 0; i < 6; i++) {
+                nfcBlock[511 + i] = customTextInput[15].charAt(i);
+            }
         }
         return encode(nfcBlock);
     }
@@ -357,7 +357,7 @@ public class DataStructuring {
         }
         for(int i=0;i<19;i++)
         {
-            if(stringsFor[i].trim().isEmpty()==true){stringsFor[i]=null;}
+            if("".equals(stringsFor[i])){stringsFor[i]=null;}
         }
 
         return stringsFor;
