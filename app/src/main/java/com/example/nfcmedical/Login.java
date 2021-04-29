@@ -74,7 +74,10 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v){
 
-                Intent intent = new Intent(getApplicationContext(), ReadNFC.class);
+
+
+                Intent intent = new Intent(getApplicationContext(), ReadNFC.class); //CHANGE THIS TO THE SCAN PAGE
+
                 startActivity(intent);
                 finish();
             }

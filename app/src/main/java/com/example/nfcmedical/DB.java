@@ -162,7 +162,13 @@ public class DB {
         @Override
         protected  void onPostExecute(String r){
             progressBar.setVisibility(View.GONE);
-            Toast.makeText(context, r, Toast.LENGTH_LONG).show();
+            if(z.equals("Violation of UNIQUE KEY constraint 'UQ__patient__AB6E61642A675C68'. Cannot insert duplicate key in object 'dbo.patient'. The duplicate key value is (newEmail).")){
+                Log.d("my error", "is true");
+                Toast.makeText(context, "Email already in use", Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(context, r, Toast.LENGTH_LONG).show();
+                Log.d("my error", "is false");
+            }
             if(isSuccess){
                 Log.d("query: ", queryResult);
                 Intent intent = new Intent(context, NFC_Basic_Input_Form.class); //redirect
