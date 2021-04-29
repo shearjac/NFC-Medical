@@ -69,6 +69,7 @@ public class SignUp extends AppCompatActivity {
                 email = textInputEditTextEmail.getText().toString();
                 firstName = textInputEditTextFirstName.getText().toString();
                 lastName = textInputEditTextLastName.getText().toString();
+
                 //dateSQLCompatible = is already set
 
                 if(!email.equals("") && !password.equals("") && !firstName.equals("") && !lastName.equals("") && !dateSQLCompatible.equals("")){

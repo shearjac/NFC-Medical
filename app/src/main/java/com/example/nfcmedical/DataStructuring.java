@@ -3,7 +3,7 @@ import java.util.HashMap;
 public class DataStructuring {
 
     //Receive data from the basic form and translate that to NFC-structured data
-    public void condense(
+    public String condense(
             char[] multichars, //For non-bool answers
             boolean[] doDont,  //For bool answers
             String[] customTextInput) //For custom user text input
@@ -182,24 +182,22 @@ public class DataStructuring {
             if (doDont[37]) nfcBlock[4] = '1';
             else nfcBlock[4] = '0';
             //User ID
-            for (int i = 0; i < 6; i++) {
-                nfcBlock[511 + i] = customTextInput[15].charAt(i);
-            }
+//            for (int i = 0; i < 6; i++) {
+//                nfcBlock[511 + i] = customTextInput[15].charAt(i);
+//            }
         }
-        encode(nfcBlock);
+        return encode(nfcBlock);
     }
 
     //char array -> String, String written into NFC
-    private void encode(char[] material)
+    private String encode(char[] material)
     {
         //Concatenate the array of chars into a single string
         StringBuilder writable = new StringBuilder(String.valueOf(material[0]));
-        for(int i=1;i<517;i++)
+        for(int i=1;i<517;i++) {
             writable.append(material[i]);
-
-        /*
-        Write data to the NFC from the array
-        */
+        }
+        return writable.toString();
     }
 
     //NFC data read into String, String -> char array

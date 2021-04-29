@@ -34,6 +34,7 @@ public class DB {
     Connection con = null;
     Context context = null;
 
+
     //use this if you need to register, login
     //ProgressBar it is expected a ProgressBar in the Layout. Assign it to a variable in your class (findViewById(R.id.yourBar))
     //Context you can get it with yourClassName.this it is used in this class to handle Toasts

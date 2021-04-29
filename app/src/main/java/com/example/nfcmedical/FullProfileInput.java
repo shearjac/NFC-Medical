@@ -6,6 +6,7 @@ package com.example.nfcmedical;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -17,6 +18,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import com.example.nfcmedical.DBClasses.Allergies;
+import com.example.nfcmedical.DBClasses.Condition;
+import com.example.nfcmedical.DBClasses.EmergencyContact;
+import com.example.nfcmedical.DBClasses.Medication;
+import com.example.nfcmedical.DBClasses.Vaccine;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -24,9 +31,16 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class FullProfileInput extends AppCompatActivity {
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    //!!! PATIENT ID MUST BE PASSED INTO THIS CLASS SOMEHOW IN ORDER TO ADD THINGS TO THE DB!!!
-    int patientID = 33;
+
+    String thisPatientID;
+    // create database object
+    DB db = new DB();
+    DataStructuring encoder = new DataStructuring();
+
+    // array objects to hold arrays being passed in from previous fragment
+    private char[] charArray;
+    private boolean[] boolArray;
+    private String[] stringArray;
 
     // new ArrayList to store existing and created text fields
     ArrayList<EditText> allICEContacts = new ArrayList<>();
@@ -40,6 +54,23 @@ public class FullProfileInput extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_profile_input);
 
+        // get objects passed from previous fragment and process them
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            charArray = bundle.getCharArray("charArray");
+            boolArray = bundle.getBooleanArray("boolArray");
+            stringArray = bundle.getStringArray("stringArray");
+        }
+
+        //////////////////////  CHANGE BACK TO METHOD CALL WHEN SYSTEM TESTING //////////////////////////
+//        thisPatientID = getPatientID();
+        thisPatientID = "33";
+        // convert to int for db queries
+        int patientID = Integer.valueOf(thisPatientID);
+        // pad with zeros to achieve 6 chars total for proper storage on NFC
+        String paddedPatientID = "000000".substring(thisPatientID.length()) + thisPatientID;
+        //put padded patient ID in designated location in stringArray
+        stringArray[15] = paddedPatientID;
 
         // add ICE text fields that already exist in layout (order must be preserved)
         EditText originalIceName = (EditText) findViewById(R.id.iCEName);
@@ -55,7 +86,6 @@ public class FullProfileInput extends AppCompatActivity {
                 addICEContacts(v);
             }
         });
-
 
 
         // add Allergy text fields that already exist in layout (order must be preserved)
@@ -74,8 +104,7 @@ public class FullProfileInput extends AppCompatActivity {
         });
 
 
-
-        // add text fields that already exist in layout
+        // add Condition text fields that already exist in layout
         EditText originalCondition = (EditText) findViewById(R.id.condition);
         allConditions.add(originalCondition);
 
@@ -90,8 +119,7 @@ public class FullProfileInput extends AppCompatActivity {
         });
 
 
-
-        // add text fields that already exist in layout (order must be preserved)
+        // add Medication text fields that already exist in layout (order must be preserved)
         EditText originalMedName = (EditText) findViewById(R.id.medicationName);
         EditText originalDose = (EditText) findViewById(R.id.medicationDose);
         EditText originalFrequency = (EditText) findViewById(R.id.medicationFrequency);
@@ -112,8 +140,7 @@ public class FullProfileInput extends AppCompatActivity {
         });
 
 
-
-        // add text fields that already exist in layout (order must be preserved)
+        // add Vaccine text fields that already exist in layout (order must be preserved)
         EditText originalVaccine = (EditText) findViewById(R.id.immunizationName);
         EditText originalVaccineDate = (EditText) findViewById(R.id.immunizationDate);
         allImmunizations.add(originalVaccine);
@@ -136,6 +163,11 @@ public class FullProfileInput extends AppCompatActivity {
             public void onClick(View v) {
                 getInputData(patientID, allICEContacts, allAllergies, allConditions, allMedications,
                         allImmunizations);
+                //condense data into one string to write on the NFC tag and return it
+                String nfcDataString = encoder.condense(charArray, boolArray, stringArray);
+                Intent intent = new Intent(getApplicationContext(), WriteNFC.class); //redirect
+                intent.putExtra("nfcDataString", nfcDataString);
+                startActivity(intent);
             }
         }));
     } // end method onCreate
@@ -367,8 +399,7 @@ public class FullProfileInput extends AppCompatActivity {
         allImmunizations.add(nextImmunizationName);
         allImmunizations.add(nextImmunizationDate);
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////
-    //!!!WON'T WORK YET BECAUSE I CAN'T ACCESS PATIENT ID OR THE DATABASE!!!
+
     private void getInputData(int patientID, ArrayList<EditText> allICEContacts,
                               ArrayList<EditText> allAllergies, ArrayList<EditText> allConditions,
                               ArrayList<EditText> allMedications, ArrayList<EditText>allImmunizations){
@@ -385,8 +416,13 @@ public class FullProfileInput extends AppCompatActivity {
             EditText numberField = allICEContacts.get(i+1);
             String name = nameField.getText().toString();
             String phoneNumber = numberField.getText().toString();
-//            // add record to database
-//            db.addContact(patientID, name, phoneNumber);
+            if (i == 2) {
+                //put primary contact's ICE number in designated location in stringArray
+                stringArray[3] = phoneNumber;
+            }
+            //add record to database
+            EmergencyContact contact = new EmergencyContact(patientID, name, phoneNumber);
+            db.addContact(contact);
             System.out.println("ICE: " + name +" "+ phoneNumber);
         }
 
@@ -418,9 +454,9 @@ public class FullProfileInput extends AppCompatActivity {
                 severityCode = Integer.valueOf(severityValue);
             }
 
-
-//            // add record to database (severity is stored as an integer)
-//            db.addAllergies(patientID, allergen, severityCode);
+            // add record to database
+            Allergies allergy = new Allergies(patientID, allergen, severityCode);
+            db.addAllergies(allergy);
             System.out.println("Allergy: " + allergen + " " + severity);
         }
 
@@ -428,8 +464,10 @@ public class FullProfileInput extends AppCompatActivity {
         for (int i = 0; i < allConditions.size(); i++) {
             EditText conditionField = allConditions.get(i);
             String condition = conditionField.getText().toString();
-//            // add record to database
-//            db.addCondition(patientID, condition);
+
+            // add record to database
+            Condition medCondition = new Condition(patientID, condition);
+            db.addCondition(medCondition);
             System.out.println("Condition: " + condition);
         }
 
@@ -444,13 +482,15 @@ public class FullProfileInput extends AppCompatActivity {
             String medName = medNameField.getText().toString();
             String dose = doseField.getText().toString();
             String freq = frequencyField.getText().toString();
-            if (!freq.equals("")) {
-                int frequency = Integer.parseInt(freq);
+            int frequency = 0;
+            if (freq.equals("")) {
+                frequency = Integer.parseInt(freq);
             }
             String medNotes = medNotesField.getText().toString();
 
-//            // add record to database
-//            db.addMedication(patientID, medName, dose, frequency, medNotes);
+            // add record to database
+            Medication med = new Medication (patientID, medName, dose, frequency, medNotes);
+            db.addMedication(med);
             System.out.println("Medication: " + medName + " " + dose + " " + freq + " " + medNotes);
         }
 
@@ -462,10 +502,18 @@ public class FullProfileInput extends AppCompatActivity {
             String vaccine = vaccineField.getText().toString();
             String date = dateField.getText().toString();
 
-//            // add record to database
-//            db.addVaccine(patientID, vaccine, date);
+            // add record to database
+            Vaccine vacc = new Vaccine(patientID, vaccine, date);
+            db.addVaccine(vacc);
             System.out.println("Vaccine: " + vaccine + " " + date);
         }
     } // end method getInputData
+
+    private String getPatientID() {
+        SessionManager sessionManager = new SessionManager(this);
+        HashMap<String, String> userDetails = sessionManager.getUserDetailFromSession();
+        String id = userDetails.get(SessionManager.KEY_ID);
+        return id;
+    }
 
 }

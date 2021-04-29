@@ -1,5 +1,6 @@
 package com.example.nfcmedical;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -85,11 +86,22 @@ public class NFC_Basic_Input_Form extends Fragment {
             @Override
             public void onClick(View v) {
                 compileInformation();
+                char[] charArray = getMultichars();
+                boolean[] boolArray = getConditionsDoDont();
+                String[] stringArray = getCustomTextInput();
+                Intent intent = new Intent(getActivity(), FullProfileInput.class);
+                Bundle bundle = new Bundle();
+                bundle.putCharArray("charArray", charArray);
+                bundle.putBooleanArray("boolArray", boolArray);
+                bundle.putStringArray("stringArray", stringArray);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
             }
         });
         multichars = new char[3];
         conditionsDoDont = new boolean[38];
-        customTextInput = new String[15];
+        customTextInput = new String[16];
         filledOut = false;
         super.onViewCreated(view, savedInstanceState);
     }
@@ -224,6 +236,7 @@ public class NFC_Basic_Input_Form extends Fragment {
             customTextInput[12] = ((EditText)v.findViewById(R.id.editTextAntiSeizureMedication)).getText().toString();
             customTextInput[13] = ((EditText)v.findViewById(R.id.editTextDiabeticMedication)).getText().toString();
             customTextInput[14] = ((EditText)v.findViewById(R.id.editTextNarcotic)).getText().toString();
+            customTextInput[15] = " ";
 
             filledOut = true;
 
@@ -304,4 +317,5 @@ public class NFC_Basic_Input_Form extends Fragment {
         String[] result = customTextInput.clone();
         return result;
     }
+
 }

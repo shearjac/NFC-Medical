@@ -15,6 +15,11 @@
         android:theme="@style/Theme.NFCMedical">
         <activity android:name=".BasicFormParent"
             android:label="NFC Medical">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ModifyFullProfile">
         </activity>
@@ -31,11 +36,7 @@
         </activity>
         <activity android:name=".EmtLogin"></activity>
         <activity android:name=".Login">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".SignUp">
         </activity>

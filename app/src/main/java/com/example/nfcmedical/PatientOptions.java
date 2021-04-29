@@ -46,7 +46,7 @@ public class PatientOptions extends AppCompatActivity {
         modifyBasicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent basicInput = new Intent(getApplicationContext(), NFC_Basic_Input_Form.class);
+                Intent basicInput = new Intent(getApplicationContext(), BasicFormParent.class);
                 startActivity(basicInput);
             }
         });
