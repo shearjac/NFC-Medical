@@ -37,8 +37,6 @@ import java.util.concurrent.Executors;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // we need to have the patient id passed to the full medical profile!!! both when patient logs-in and
 // from the method that translates data after scan of the NFC tag
-// IT'S NOT CURRENTLY POPULATING DB DATA, NOT SURE IF IT'S AN ISSUE WITH HOW IT'S BEING QUERIED OR HOW
-// I'VE CONVERTED THE QUERY RESULT ARRAY LISTS INTO STRING ARRAY LISTS  (lines 129-185). IT WORKS WITH THE TEST DATA.
 public class FullMedicalProfile extends AppCompatActivity {
     private int thisPatientID;
     ExpandableListView fullMedProfile;
@@ -124,11 +122,6 @@ public class FullMedicalProfile extends AppCompatActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        //____________________________________________________________________________________________________PUT THE CODE HERE
-
-                        //NEED TO MODIFY SO categoryResults IS POPULATED WITH ACTUAL RESULTS FROM QUERYING THE DB
-                        //DATA WITH MULTIPLE FIELD NEEDS TO BE CONVERTED TO A STRING THAT WILL DISPLAY ON ONE LINE
-                        //FOR EXAMPLE, IN MEDICATIONS: levothyroxine 75 mcg 1x/day
 
                         // convert ArrayLists of each class to an array list of Strings (e.g. AllergiesObject.toString)
                         // convert ICE Contacts

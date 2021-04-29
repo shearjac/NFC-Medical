@@ -63,8 +63,8 @@ public class FullProfileInput extends AppCompatActivity {
         }
 
         //////////////////////  CHANGE BACK TO METHOD CALL WHEN SYSTEM TESTING //////////////////////////
-//        thisPatientID = getPatientID();
-        thisPatientID = "33";
+        thisPatientID = getPatientID();
+//        thisPatientID = "33";
         // convert to int for db queries
         int patientID = Integer.valueOf(thisPatientID);
         // pad with zeros to achieve 6 chars total for proper storage on NFC
