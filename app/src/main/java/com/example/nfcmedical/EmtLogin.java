@@ -25,9 +25,9 @@ public class EmtLogin extends AppCompatActivity {
         textInputEditTextUsername = findViewById(R.id.username);
         textInputEditTextPassword = findViewById(R.id.password);
 
-        buttonUserLogin = findViewById(R.id.buttonUserLogin);
-        buttonScan = findViewById(R.id.buttonScan);
-        buttonLogin = findViewById(R.id.buttonLogin);
+        buttonUserLogin = findViewById(R.id.buttonEMTUserLogin);
+        buttonScan = findViewById(R.id.buttonEMTScan);
+        buttonLogin = findViewById(R.id.buttonEMTLogin);
 
         progressBar = findViewById(R.id.progress);
 
@@ -43,7 +43,6 @@ public class EmtLogin extends AppCompatActivity {
 
                     DB db = new DB(EmtLogin.this, progressBar);
                     db.emtLogin(username, password);
-
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "All fields are required", Toast.LENGTH_SHORT).show();
@@ -56,9 +55,6 @@ public class EmtLogin extends AppCompatActivity {
             @Override
             public void onClick(View v){
 
-                Intent intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
-                finish();
 
             }
         });
@@ -67,7 +63,7 @@ public class EmtLogin extends AppCompatActivity {
             @Override
             public void onClick(View v){
 
-                Intent intent = new Intent(getApplicationContext(), Main.class); //CHANGE THIS TO THE SCAN PAGE
+                Intent intent = new Intent(getApplicationContext(), ReadNFC.class); //CHANGE THIS TO THE SCAN PAGE
                 startActivity(intent);
                 finish();
 

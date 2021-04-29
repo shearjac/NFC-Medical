@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -54,7 +52,6 @@ public class Login extends AppCompatActivity {
 
                     DB db = new DB(Login.this, progressBar);
                     db.login(email, password);
-
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "All fields are required", Toast.LENGTH_SHORT).show();
@@ -77,10 +74,9 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v){
 
-                Intent intent = new Intent(getApplicationContext(), Main.class); //CHANGE THIS TO THE SCAN PAGE
+                Intent intent = new Intent(getApplicationContext(), ReadNFC.class);
                 startActivity(intent);
                 finish();
-
             }
         });
 

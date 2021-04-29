@@ -165,7 +165,7 @@ public class DB {
             Toast.makeText(context, r, Toast.LENGTH_LONG).show();
             if(isSuccess){
                 Log.d("query: ", queryResult);
-                Intent intent = new Intent(context, Main.class); //redirect
+                Intent intent = new Intent(context, NFC_Basic_Input_Form.class); //redirect
                 context.startActivity(intent);
             }
         }
@@ -223,7 +223,7 @@ public class DB {
             Toast.makeText(context, r, Toast.LENGTH_LONG).show();
             if(isSuccess){
                 Log.d("query: ", queryResult);
-                Intent intent = new Intent(context, Main.class); //redirect
+                Intent intent = new Intent(context, PatientOptions.class); //redirect
                 context.startActivity(intent);
             }
         }
@@ -291,7 +291,7 @@ public class DB {
             Toast.makeText(context, r, Toast.LENGTH_LONG).show();
             if(isSuccess){
                 Log.d("query: ", queryResult);
-                Intent intent = new Intent(context, Main.class); //redirect
+                Intent intent = new Intent(context, ReadNFC.class); //redirect
                 context.startActivity(intent);
             }
         }
