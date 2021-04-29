@@ -1,4 +1,8 @@
 package com.example.nfcmedical;
+/*
+ * FullMedicalProfile.java
+ * Written by Shannon Purrington for SE 475, Spring 2021
+ */
 
 import androidx.appcompat.app.AppCompatActivity;
 

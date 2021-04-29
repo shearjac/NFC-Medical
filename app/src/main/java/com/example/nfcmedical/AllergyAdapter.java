@@ -1,4 +1,8 @@
 package com.example.nfcmedical;
+/*
+ * AllergyAdapter.java
+ * Written by Shannon Purrington for SE 475, Spring 2021
+ */
 
 import android.content.Context;
 import android.util.Log;
@@ -9,6 +13,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.nfcmedical.R;
+
 import java.util.ArrayList;
 
 public class AllergyAdapter extends RecyclerView.Adapter<AllergyAdapter.AllergyViewHolder> {

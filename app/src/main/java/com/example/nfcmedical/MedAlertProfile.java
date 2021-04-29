@@ -1,4 +1,8 @@
 package com.example.nfcmedical;
+/*
+ * MedAlertProfile.java
+ * Written by Shannon Purrington for SE 475, Spring 2021
+ */
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,9 +46,19 @@ public class MedAlertProfile extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: started");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_med_alert_profile);
-        Log.d(TAG, "onCreate: started");
+
+        // get data passed from previous activity
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            nfcStrings = bundle.getStringArray("stringArray");
+            nfcBooleanItems = (HashMap<String, String>) bundle.getSerializable("HashMap");
+        }
+
+
 
         ////////////////////////  NEEDS UPDATING AFTER CHASE MAKES CORRECTIONS TO HIS CLASS ////////////
 //        // copy array and HashMap retrieved from previous activity
@@ -53,7 +67,7 @@ public class MedAlertProfile extends AppCompatActivity {
 //        nfcStrings = testStrings;
 //        nfcBooleanItems = NAME_OF_CHASE'S_HASHMAP_HERE;
         // TAKE THIS LINE OUT WHEN DONE TESTING
-        nfcBooleanItems = testHashMap;
+//        nfcBooleanItems = testHashMap;
 
 
 ///////////////////////////////    REMOVE AFTER TESTING ////////////////////////////////////////////

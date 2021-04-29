@@ -1,6 +1,10 @@
 package com.example.nfcmedical;
+/*
+ * MedConditionsAdapter.java
+ * Written by Shannon Purrington for SE 475, Spring 2021
+ */
 
-        import android.content.Context;
+import android.content.Context;
         import android.util.Log;
         import android.view.LayoutInflater;
         import android.view.View;

@@ -23,6 +23,11 @@
         <activity android:name=".WriteNFC">
         </activity>
         <activity android:name=".ReadNFC">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".FullProfileInput"
@@ -38,11 +43,7 @@
         <activity android:name=".FullMedicalProfile">
         </activity>
         <activity android:name=".MedAlertProfile">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 </manifest>

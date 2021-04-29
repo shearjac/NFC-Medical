@@ -1,4 +1,8 @@
 package com.example.nfcmedical;
+/*
+ * CategoryAdapter.java
+ * Written by Shannon Purrington for SE 475, Spring 2021
+ */
 
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
