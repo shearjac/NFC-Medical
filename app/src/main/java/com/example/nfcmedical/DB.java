@@ -108,6 +108,11 @@ public class DB {
         updateSQL(sql);
     }
 
+    public void removeMedication(int patientId, String name) {
+        String sql = "DELETE FROM medications WHERE patient_id=" + patientId + " AND name='" + name + "'";
+        updateSQL(sql);
+    }
+
 
     public int getId(String email){
         int id = 9999;

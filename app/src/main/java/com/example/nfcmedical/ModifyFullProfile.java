@@ -60,7 +60,7 @@ public class ModifyFullProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String newIceName = modICEName.getText().toString();
-                db.removeAllergy(patientID, newIceName);
+                db.removeContact(patientID, newIceName);
             }
         });
 
@@ -69,7 +69,7 @@ public class ModifyFullProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String newIceName = modICEName.getText().toString();
-                String newIceNumber = modICEName.getText().toString();
+                String newIceNumber = modICENumber.getText().toString();
                 EmergencyContact newContact = new EmergencyContact(patientID, newIceName, newIceNumber);
                 db.addContact(newContact);
             }
@@ -120,8 +120,7 @@ public class ModifyFullProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String newMedName = modMedName.getText().toString();
-                // no function for removeMedication in db class yet
-//                db.removeMedication(patientID, newMedName);
+                db.removeMedication(patientID, newMedName);
             }
         });
         Button addMedButton = (Button) findViewById(R.id.addMedButton);
@@ -143,7 +142,7 @@ public class ModifyFullProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String newVaxName = modVaxName.getText().toString();
-                db.removeCondition(patientID, newVaxName);
+                db.removeVaccine(patientID, newVaxName);
             }
         });
         Button addVaccineButton = (Button) findViewById(R.id.addVaccineButton);

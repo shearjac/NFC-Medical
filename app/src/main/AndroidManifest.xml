@@ -17,6 +17,7 @@
             android:label="NFC Medical">
         </activity>
         <activity android:name=".ModifyFullProfile">
+
         </activity>
         <activity android:name=".PatientOptions">
         </activity>
