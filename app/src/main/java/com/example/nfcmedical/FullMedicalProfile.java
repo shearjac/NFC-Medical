@@ -14,6 +14,7 @@ import android.os.Looper;
 import android.os.StrictMode;
 import android.util.Log;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import com.example.nfcmedical.DBClasses.Allergies;
 import com.example.nfcmedical.DBClasses.Condition;
@@ -37,6 +38,7 @@ import java.util.concurrent.Executors;
 public class FullMedicalProfile extends AppCompatActivity {
     FullProfileInput profile = new FullProfileInput();
     private int patientID;
+    private String fullName;
 
     ExpandableListView fullMedProfile;
     String[] categories;
@@ -49,8 +51,13 @@ public class FullMedicalProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_medical_profile);
 
-        // getPatientID and convert to int (stored as int in db)
+        // get PatientID and convert to int (stored as int in db)
         patientID = Integer.valueOf(getPatientID());
+        //get and display Patient's name
+        fullName = getPatientname();
+        TextView nameResult = (TextView) findViewById(R.id.nameResult);
+        nameResult.setText(fullName);
+
 
         fullMedProfile = findViewById(R.id.fullMedProfile);
         //populate array with names of categories in the full profile
@@ -74,11 +81,11 @@ public class FullMedicalProfile extends AppCompatActivity {
             public void run() {
                 Connection con = connectionClass(); //Connect to database
                 try{
-                    String queryAllergies = "SELECT * FROM allergies WHERE patient_id = patientID";
-                    String queryCondition = "SELECT * FROM conditions WHERE patient_id = patientID";
-                    String queryEmergencyContact = "SELECT * FROM emergency_contact WHERE patient_id = patientID";
-                    String queryMedication = "SELECT * FROM medications WHERE patient_id = patientID";
-                    String queryVaccine = "SELECT * FROM vaccines WHERE patient_id = patientID";
+                    String queryAllergies = "SELECT * FROM allergies WHERE patient_id = " + patientID;
+                    String queryCondition = "SELECT * FROM conditions WHERE patient_id = " + patientID;
+                    String queryEmergencyContact = "SELECT * FROM emergency_contact WHERE patient_id = " + patientID;
+                    String queryMedication = "SELECT * FROM medications WHERE patient_id = " + patientID;
+                    String queryVaccine = "SELECT * FROM vaccines WHERE patient_id = " + patientID;
 
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(queryAllergies);
@@ -234,5 +241,14 @@ public class FullMedicalProfile extends AppCompatActivity {
         HashMap<String, String> userDetails = sessionManager.getUserDetailFromSession();
         String id = userDetails.get(SessionManager.KEY_ID);
         return id;
+    }
+
+    public String getPatientname() {
+        SessionManager sessionManager = new SessionManager(this);
+        HashMap<String, String> userDetails = sessionManager.getUserDetailFromSession();
+        String firstName = userDetails.get(SessionManager.KEY_FIRST_NAME);
+        String lastName = userDetails.get(SessionManager.KEY_LAST_NAME);
+        String fullName = firstName + " " + lastName;
+        return fullName;
     }
 }

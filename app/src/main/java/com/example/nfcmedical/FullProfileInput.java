@@ -62,9 +62,8 @@ public class FullProfileInput extends AppCompatActivity {
             stringArray = bundle.getStringArray("stringArray");
         }
 
-        //////////////////////  CHANGE BACK TO METHOD CALL WHEN SYSTEM TESTING //////////////////////////
+
         thisPatientID = getPatientID();
-//        thisPatientID = "33";
         // convert to int for db queries
         int patientID = Integer.valueOf(thisPatientID);
         // pad with zeros to achieve 6 chars total for proper storage on NFC
@@ -77,6 +76,7 @@ public class FullProfileInput extends AppCompatActivity {
         EditText originalIceNumber = (EditText) findViewById(R.id.iCENumber);
         allICEContacts.add(originalIceName);
         allICEContacts.add(originalIceNumber);
+
 
         // reference button to add another emergency contact
         Button addICE = (Button) findViewById(R.id.addICE);

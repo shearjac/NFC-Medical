@@ -21,11 +21,11 @@ import java.util.Map;
 public class MedAlertProfile extends AppCompatActivity {
     private static final String TAG = "MedAlertProfile";
 
-    /////////////////////////      REMOVE THIS AFTER TESTING //////////////////////////////////////////
-    private String[] testStrings = new String[]{"John Smith", "Jane Smith", "3940983627", "A+", "Stage III",
-            null, "bad group members", null, "liver cancer", null, null, "primary myelofibrosis", "deaf",
-            null, "coumadin", null, "metformin", null};
-    private HashMap<String, String> testHashMap = new HashMap<>();
+//    /////////////////////////      REMOVE THIS AFTER TESTING //////////////////////////////////////////
+//    private String[] testStrings = new String[]{"John Smith", "Jane Smith", "3940983627", "A+", "Stage III",
+//            null, "bad group members", null, "liver cancer", null, null, "primary myelofibrosis", "deaf",
+//            null, "coumadin", null, "metformin", null};
+//    private HashMap<String, String> testHashMap = new HashMap<>();
 
 
 
@@ -52,34 +52,19 @@ public class MedAlertProfile extends AppCompatActivity {
             nfcBooleanItems = (HashMap<String, String>) bundle.getSerializable("HashMap");
         }
 
-
-
-        ////////////////////////  NEEDS UPDATING AFTER CHASE MAKES CORRECTIONS TO HIS CLASS ////////////
-//        // copy array and HashMap retrieved from previous activity
-//        nfcStrings = NAME_OF_CHASE'S_STRING_ARRAY_HERE;
-        // TAKE THIS LINE OUT WHEN DONE TESTING
-//        nfcStrings = testStrings;
-//        nfcBooleanItems = NAME_OF_CHASE'S_HASHMAP_HERE;
-        // TAKE THIS LINE OUT WHEN DONE TESTING
-//        nfcBooleanItems = testHashMap;
-
-
-///////////////////////////////    REMOVE AFTER TESTING ////////////////////////////////////////////
-        testHashMap.put("NSAIDs allergy", "true");
-        testHashMap.put("Atrial Fibrillation", "true");
-        testHashMap.put("Stroke", "true");
-        testHashMap.put("Pacemaker", "true");
-        testHashMap.put("General Anesthesia allergy", "true");
-        testHashMap.put("Wrong input on purpose", "true");
-        testHashMap.put("Peanut allergy", "false");
-        testHashMap.put("Coronary Artery Disease", "false");
-        testHashMap.put("Hypertension", "false");
-        testHashMap.put("Insulin Pump", "false");
-        testHashMap.put("PTSD", "false");
-        testHashMap.put("Wrong input on purpose", "false");
-
-
-
+/////////////////////////////////    REMOVE AFTER TESTING ////////////////////////////////////////////
+//        testHashMap.put("NSAIDs allergy", "true");
+//        testHashMap.put("Atrial Fibrillation", "true");
+//        testHashMap.put("Stroke", "true");
+//        testHashMap.put("Pacemaker", "true");
+//        testHashMap.put("General Anesthesia allergy", "true");
+//        testHashMap.put("Wrong input on purpose", "true");
+//        testHashMap.put("Peanut allergy", "false");
+//        testHashMap.put("Coronary Artery Disease", "false");
+//        testHashMap.put("Hypertension", "false");
+//        testHashMap.put("Insulin Pump", "false");
+//        testHashMap.put("PTSD", "false");
+//        testHashMap.put("Wrong input on purpose", "false");
 
         //underline headings in GUI
         TextView allergyLabel = (TextView) findViewById(R.id.allergyLabel);
@@ -100,18 +85,21 @@ public class MedAlertProfile extends AppCompatActivity {
 
     private void getPersonalInfo() {
         Log.d(TAG, "getPersonalInfo: started");
-        ////////////////////////  NEEDS UPDATING AFTER CHASE MAKES CORRECTIONS TO HIS CLASS ////////////
-        //this item will be optional
-//        if (VALUE_OF_MY_HASMAP_KEY_"INCLUDE_NAME" == TRUE) {
+
+/////////////////////////////////     Currently Shows Heading but not result     ///////////////////////////
+//        //this item will be optional
+//        String showName = nfcBooleanItems.get("Show Name");
+//        if (showName.equals("true")) {
 //            String nameResult = nfcStrings[0];
 //            mLabels.add("Name:");
 //            mResults.add(nameResult);
 //        }
-        //this item will be optional
-//        if (VALUE_OF_MY_HASMAP_KEY_"INCLUDE_ICE_#" == TRUE){
+//        //this item will be optional
+//            String showICE = nfcBooleanItems.get("Show ICE Number");
+//        if (showICE.equals("true")) {
 //            String iceNumberResult = nfcStrings[2];
 //            mLabels.add("ICE Number:");
-//            mResults.add("ICE Number Result");
+//            mResults.add(iceNumberResult);
 //        }
 
         mLabels.add("Blood Type:");
@@ -267,4 +255,5 @@ public class MedAlertProfile extends AppCompatActivity {
             }
         }
     }
+
 }

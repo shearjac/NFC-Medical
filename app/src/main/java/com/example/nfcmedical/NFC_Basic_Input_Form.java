@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import java.util.HashMap;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link NFC_Basic_Input_Form#newInstance} factory method to
@@ -221,7 +223,7 @@ public class NFC_Basic_Input_Form extends Fragment {
             conditionsDoDont[37] = ((CheckBox)v.findViewById(R.id.checkboxIncludeIce)).isChecked();
 
             ////customTextInput
-            customTextInput[0] = "DUMMY";
+            customTextInput[0] = getPatientName();
             customTextInput[1] = "DUMMY";
             customTextInput[2] = "DUMMY";
             customTextInput[3] = ((EditText)v.findViewById(R.id.editTextOtherAllergy)).getText().toString();
@@ -316,6 +318,14 @@ public class NFC_Basic_Input_Form extends Fragment {
     public String[] getCustomTextInput() {
         String[] result = customTextInput.clone();
         return result;
+    }
+    public String getPatientName() {
+        SessionManager sessionManager = new SessionManager(getActivity());
+        HashMap<String, String> userDetails = sessionManager.getUserDetailFromSession();
+        String firstName = userDetails.get(SessionManager.KEY_FIRST_NAME);
+        String lastName = userDetails.get(SessionManager.KEY_LAST_NAME);
+        String fullName = firstName + " " + lastName;
+        return fullName;
     }
 
 }
