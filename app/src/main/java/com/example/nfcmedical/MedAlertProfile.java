@@ -19,12 +19,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class MedAlertProfile extends AppCompatActivity {
-    ////////////////////////////////     NEEDS UPDATING     /////////////////////////////////////////////
-    //get string array of data from NFC tag either by passing them from previous activity or by calling
-    // Chase's expand methods
-    // Have the on-click method of the Done button in NFC read call Chase's decode method, pass that
-    // return value into expandStrings(char[]) and expandBooleans(char[]) then have that scene pass
-    // the return values of those (a String[] and a HashMap<String, String> to this scene
     private static final String TAG = "MedAlertProfile";
 
     /////////////////////////      REMOVE THIS AFTER TESTING //////////////////////////////////////////

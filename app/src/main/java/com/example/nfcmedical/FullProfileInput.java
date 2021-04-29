@@ -509,7 +509,7 @@ public class FullProfileInput extends AppCompatActivity {
         }
     } // end method getInputData
 
-    private String getPatientID() {
+    public String getPatientID() {
         SessionManager sessionManager = new SessionManager(this);
         HashMap<String, String> userDetails = sessionManager.getUserDetailFromSession();
         String id = userDetails.get(SessionManager.KEY_ID);
