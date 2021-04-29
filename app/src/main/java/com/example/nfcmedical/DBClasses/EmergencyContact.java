@@ -11,7 +11,7 @@ public class EmergencyContact {
         this.phoneNumber = phoneNumber;
     }
 
-    public EmergencyContact(int patientId, String name, String phoneNumber) {
+    public EmergencyContact(int patientId, String phoneNumber, String name) {
         this.patientId = patientId;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -43,6 +43,6 @@ public class EmergencyContact {
 
     @Override
     public String toString(){
-        return name + "/n" + phoneNumber;
+        return name + " " + phoneNumber;
     }
 }

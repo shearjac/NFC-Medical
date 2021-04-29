@@ -6,6 +6,17 @@ public class Vaccine {
     String name;
     String date;
 
+    public Vaccine(int patientId, String name) {
+        this.patientId = patientId;
+        this.name = name;
+    }
+
+    public Vaccine(int patientId, String name, String date) {
+        this.patientId = patientId;
+        this.name = name;
+        this.date = date;
+    }
+
     public int getPatientId() {
         return patientId;
     }
@@ -27,17 +38,6 @@ public class Vaccine {
     }
 
     public void setDate(String date) {
-        this.date = date;
-    }
-
-    public Vaccine(int patientId, String name) {
-        this.patientId = patientId;
-        this.name = name;
-    }
-
-    public Vaccine(int patientId, String name, String date) {
-        this.patientId = patientId;
-        this.name = name;
         this.date = date;
     }
 

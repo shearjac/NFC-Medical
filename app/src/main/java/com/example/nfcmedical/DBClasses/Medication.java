@@ -63,6 +63,6 @@ public class Medication {
 
     @Override
     public String toString() {
-        return name + " " + dose + " " + frequency + " time/day \n" + notes;
+        return name + " " + dose + " " + frequency + " " + notes;
     }
 }

@@ -74,11 +74,11 @@ public class FullMedicalProfile extends AppCompatActivity {
             public void run() {
                 Connection con = connectionClass(); //Connect to database
                 try{
-                    String queryAllergies = "SELECT * FROM allergies WHERE patient_id = patientID";
-                    String queryCondition = "SELECT * FROM conditions WHERE patient_id = patientID";
-                    String queryEmergencyContact = "SELECT * FROM emergency_contact WHERE patient_id = patientID";
-                    String queryMedication = "SELECT * FROM medications WHERE patient_id = patientID";
-                    String queryVaccine = "SELECT * FROM vaccines WHERE patient_id = patientID";
+                    String queryAllergies = "SELECT * FROM allergies WHERE patient_id = " + patientID;
+                    String queryCondition = "SELECT * FROM conditions WHERE patient_id = " + patientID;
+                    String queryEmergencyContact = "SELECT * FROM emergency_contact WHERE patient_id = " + patientID;
+                    String queryMedication = "SELECT * FROM medications WHERE patient_id = " + patientID;
+                    String queryVaccine = "SELECT * FROM vaccines WHERE patient_id = " + patientID;
 
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(queryAllergies);
@@ -96,7 +96,7 @@ public class FullMedicalProfile extends AppCompatActivity {
 
                     rs = stmt.executeQuery(queryEmergencyContact);
                     while(rs.next()){
-                        EmergencyContact e = new EmergencyContact(rs.getInt("patient_id"), rs.getString("name"), rs.getString("phoneNumber"));
+                        EmergencyContact e = new EmergencyContact(rs.getInt("patient_id"), rs.getString("phone_number"), rs.getString("name"));
                         emergencyContacts.add(e);
                     }
 
