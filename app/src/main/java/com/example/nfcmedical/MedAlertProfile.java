@@ -86,21 +86,21 @@ public class MedAlertProfile extends AppCompatActivity {
     private void getPersonalInfo() {
         Log.d(TAG, "getPersonalInfo: started");
 
-/////////////////////////////////     Currently Shows Heading but not result     ///////////////////////////
-//        //this item will be optional
-//        String showName = nfcBooleanItems.get("Show Name");
-//        if (showName.equals("true")) {
-//            String nameResult = nfcStrings[0];
-//            mLabels.add("Name:");
-//            mResults.add(nameResult);
-//        }
-//        //this item will be optional
-//            String showICE = nfcBooleanItems.get("Show ICE Number");
-//        if (showICE.equals("true")) {
-//            String iceNumberResult = nfcStrings[2];
-//            mLabels.add("ICE Number:");
-//            mResults.add(iceNumberResult);
-//        }
+///////////////////////////////     Currently Shows Heading but not result     ///////////////////////////
+        //this item will be optional
+        String showName = nfcBooleanItems.get("Show Name");
+        if (showName.equals("true")) {
+            String nameResult = nfcStrings[0];
+            mLabels.add("Name:");
+            mResults.add(nameResult);
+        }
+        //this item will be optional
+            String showICE = nfcBooleanItems.get("Show ICE Number");
+        if (showICE.equals("true")) {
+            String iceNumberResult = nfcStrings[2];
+            mLabels.add("ICE Number:");
+            mResults.add(iceNumberResult);
+        }
 
         mLabels.add("Blood Type:");
         // get blood type from designated spot in array

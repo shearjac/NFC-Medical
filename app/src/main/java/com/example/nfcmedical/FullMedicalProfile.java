@@ -135,46 +135,30 @@ public class FullMedicalProfile extends AppCompatActivity {
                         for (EmergencyContact iceCon: emergencyContacts) {
                             patientContacts.add(iceCon.toString());
                         }
-                        /////////////////////////////     TEST DATA     ////////////////////////////
-                        patientContacts.add("Test Emergency Contact 1 \n 2128904533");
 
                         // convert Allergies
                         ArrayList<String> patientAllergies = new ArrayList<>();
                         for (Allergies algy: allergies) {
                             patientAllergies.add(algy.toString());
                         }
-                        /////////////////////////////     TEST DATA     ////////////////////////////
-                        patientAllergies.add("Test Allergy 1 - 2");
-                        patientAllergies.add("Test Allergy 2 - 1");
 
                         // convert Conditions
                         ArrayList<String> patientConditions = new ArrayList<>();
                         for (Condition cond: conditions) {
                             patientConditions.add(cond.toString());
                         }
-                        /////////////////////////////     TEST DATA     ////////////////////////////
-                        patientConditions.add("Test Condition 1");
-                        patientConditions.add("Test Condition 2");
-                        patientConditions.add("Test Condition 3");
 
                         // convert Medications
                         ArrayList<String> patientMedications = new ArrayList<>();
                         for (Medication med: medications) {
                             patientMedications.add(med.toString());
                         }
-                        /////////////////////////////     TEST DATA     ////////////////////////////
-                        patientMedications.add("Test Medication 1");
-                        patientMedications.add("Test Medication 2");
-                        patientMedications.add("Test Medication 3");
 
                         // convert Immunizations
                         ArrayList<String> patientVaccines = new ArrayList<>();
                         for(Vaccine vax: vaccines) {
                             patientVaccines.add(vax.toString());
                         }
-                        /////////////////////////////     TEST DATA     ////////////////////////////
-                        patientVaccines.add("Test Vaccine 1");
-                        patientVaccines.add("Test Vaccine 2");
 
                         //populate data in each category from results obtained when querying db
                         for (int i = 0; i < profileHeadings.size(); i++) {

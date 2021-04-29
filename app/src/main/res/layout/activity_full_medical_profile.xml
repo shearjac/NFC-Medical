@@ -41,37 +41,12 @@
         android:text="Name Result"
         android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/bloodTypeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
-        android:text="Blood Type:"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/nameLabel" />
-
-
-    <TextView
-        android:id="@+id/bloodTypeResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/nameLabel"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_toRightOf="@id/bloodTypeLabel"
-        android:text="Blood Type Result"
-        android:textSize="24sp" />
-
-
-
 
     <ExpandableListView
         android:id="@+id/fullMedProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bloodTypeLabel"
+        android:layout_below="@+id/nameLabel"
         android:paddingTop="12dp"></ExpandableListView>
 
 </RelativeLayout>

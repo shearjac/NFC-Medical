@@ -45,7 +45,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/iCEName"
+                android:id="@+id/modICEName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iCELabel"
@@ -58,7 +58,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/iCENumber"
+                android:id="@+id/modICENumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iCEName"
@@ -133,7 +133,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/allergen"
+                android:id="@+id/modAllergen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/allergyLabel"
@@ -145,8 +145,8 @@
                 android:inputType="text"
                 android:textSize="18sp" />
 
-            <Spinner
-                android:id="@+id/algySeverity"
+            <EditText
+                android:id="@+id/modAlgySeverity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/allergen"
@@ -220,7 +220,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/condition"
+                android:id="@+id/modCondition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/conditionsLabel"
@@ -295,7 +295,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/medicationName"
+                android:id="@+id/modMedicationName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/medicationsLabel"
@@ -315,7 +315,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/medicationDose"
+                    android:id="@+id/modMedicationDose"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/medicationsName"
@@ -329,7 +329,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/medicationFrequency"
+                    android:id="@+id/modMedicationFrequency"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/medicationsName"
@@ -345,7 +345,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/medicationNotes"
+                android:id="@+id/modMedicationNotes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/medicationName"
@@ -420,7 +420,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/immunizationName"
+                android:id="@+id/modImmunizationName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/immunizationsLabel"
@@ -433,7 +433,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/immunizationDate"
+                android:id="@+id/modImmunizationDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/immunizationName"
